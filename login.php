@@ -1,9 +1,15 @@
+<?php 
+  session_start();
+
+  if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_email'])) { 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login Page</title>
+	<title>Secure Login System PHP</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
@@ -18,14 +24,15 @@
 			  <?=htmlspecialchars($_GET['error'])?>
 			</div>
 		    <?php } ?>
-			<div class="mb-3">
-		    <label for="exampleInputUsername1" 
-		           class="form-label">Username
+		  <div class="mb-3">
+		    <label for="exampleInputEmail1" 
+		           class="form-label">Email address
 		    </label>
-			<input type="username" 
+		    <input type="email" 
+		           name="email" 
+		           value="<?php if(isset($_GET['email']))echo(htmlspecialchars($_GET['email'])) ?>" 
 		           class="form-control" 
-		           name="username" 
-		           id="exampleInputUsername1">
+		           id="exampleInputEmail1" aria-describedby="emailHelp">
 		  </div>
 		  <div class="mb-3">
 		    <label for="exampleInputPassword1" 
@@ -36,6 +43,15 @@
 		           name="password" 
 		           id="exampleInputPassword1">
 		  </div>
+		  <div>
+		  <label 
+		           class="form-label">
+				   <a href="register.php">register
+					   
+				   </a>
+		    </label>
+		  </button>
+		  </div>
 		  <button type="submit" 
 		          class="btn btn-primary">LOGIN
 		  </button>
@@ -43,3 +59,9 @@
 	  </div>
 </body>
 </html>
+
+<?php 
+}else {
+   header("Location: index.php");
+}
+ ?>
