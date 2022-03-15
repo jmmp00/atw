@@ -3,37 +3,69 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration Page</title>
+	<title>Secure Login System PHP</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
-  <div class="header">
-  	<h2>Register</h2>
-  </div>
-	
-  <form method="post" action="register.php">
-  	  	<div class="input-group">
-  	  <label>Username</label>
-  	  <input type="text" name="username" value="">
-  	</div>
-  	<div class="input-group">
-  	  <label>Email</label>
-  	  <input type="email" name="email" value="">
-  	</div>
-  	<div class="input-group">
-  	  <label>Password</label>
-  	  <input type="password" name="password_1">
-  	</div>
-  	<div class="input-group">
-  	  <label>Confirm password</label>
-  	  <input type="password" name="password_2">
-  	</div>
-  	<div class="input-group">
-  	  <button type="submit" class="btn" name="reg_user">Register</button>
-  	</div>
-  	<p>
-  		Already a member? <a href="login.php">Login</a>
-  	</p>
-  </form>
+	  <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+	  	<form class="p-5 rounded shadow" 
+	  	      action="auth.php"
+	  	      method="post" 
+	  	      style="width: 30rem">
+	  		<h1 class="text-center pb-5 display-4">REGISTER</h1>
+	  		<?php if (isset($_GET['error'])) { ?>
+	  		<div class="alert alert-danger" role="alert">
+			  <?=htmlspecialchars($_GET['error'])?>
+			</div>
+		    <?php } ?>
+		  <div class="mb-3">
+		    <label for="exampleInputEmail1" 
+		           class="form-label">Email address
+		    </label>
+		    <input type="email" 
+		           name="email" 
+		           value="<?php if(isset($_GET['email']))echo(htmlspecialchars($_GET['email'])) ?>" 
+		           class="form-control" 
+		           id="exampleInputEmail1" aria-describedby="emailHelp">
+		  </div>
+		  <div class="mb-3">
+		    <label  
+		           class="form-label">Name
+		    </label>
+		    <input type="text" 
+		           class="form-control" 
+		           name="name">
+		  </div>
+		  <div class="mb-3">
+		    <label  
+		           class="form-label">Surname
+		    </label>
+		    <input type="text" 
+		           class="form-control" 
+		           name="surname">
+		  </div>
+		  <div class="mb-3">
+		    <label  
+		           class="form-label">Username
+		    </label>
+		    <input type="text" 
+		           class="form-control" 
+		           name="username">
+		  </div>
+		  <div class="mb-3">
+		    <label for="exampleInputPassword1" 
+		           class="form-label">Password
+		    </label>
+		    <input type="password" 
+		           class="form-control" 
+		           name="password" 
+		           id="exampleInputPassword1">
+		  </div>
+		  <button type="submit" 
+					name="register"
+		          class="btn btn-primary">register
+		  </button>
+		</form>
+	  </div>
 </body>
 </html>
