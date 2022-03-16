@@ -1,5 +1,5 @@
 <?php 
-  session_start();
+ session_start();
 
   if (isset($_SESSION['user_id']) && isset($_SESSION['user_email'])) { 
 ?>
@@ -16,7 +16,7 @@
 <body>
 	 <div class="d-flex justify-content-center align-items-center flex-column" style="min-height: 100vh;">
 	 	<i class="bi bi-person-fill" style="font-size: 14rem"></i>
-        <h1 class="text-center display-4" style="margin-top: -60px;font-size: 2rem"><?=$_SESSION['user_full_name']?></h1>
+        <h1 class="text-center display-4" style="margin-top: -60px;font-size: 2rem"><?=$_SESSION['user_name'] . " ".$_SESSION['user_surname']?></h1>
         <a href="logout.php" class="btn btn-warning">LOGOUT</a>
 
 	 </div>

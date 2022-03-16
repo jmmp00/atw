@@ -26,13 +26,12 @@
 		    <?php } ?>
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" 
-		           class="form-label">Email address
+		           class="form-label">Email or Username
 		    </label>
-		    <input type="email" 
-		           name="email" 
-		           value="<?php if(isset($_GET['email']))echo(htmlspecialchars($_GET['email'])) ?>" 
+		    <input type="text" 
+		           name="userInfo" 
+		           value="<?php if(isset($_GET['userInfo']))echo(htmlspecialchars($_GET['userInfo'])) ?>" 
 		           class="form-control" 
-		           id="exampleInputEmail1" aria-describedby="emailHelp">
 		  </div>
 		  <div class="mb-3">
 		    <label for="exampleInputPassword1" 
