@@ -33,7 +33,11 @@ if (isset($_POST['login'])){
 				$user_name = $user['name'];
 				$user_surname = $user['surname'];
 				if ($userInfo === $userInfo) {
-					if (password_verify($password, $user_password)) {
+					if (password_verify($password, $user_password)) { 
+						if(isset($_POST['remember-me'])){
+							setcookie('USERINFO', $userInfo, time() + 60*60*24*30);
+							setcookie('PASSWORD', $password, time() + 60*60*24*30);
+						}
 						$_SESSION['user_id'] = $user_id;
 						$_SESSION['user_email'] = $user_email;
 						$_SESSION['user_name'] = $user_name;

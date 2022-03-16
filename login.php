@@ -11,52 +11,59 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Secure Login System PHP</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	<link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	  <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-	  	<form class="p-5 rounded shadow" 
-	  	      action="auth.php"
-	  	      method="post" 
-	  	      style="width: 30rem">
-	  		<h1 class="text-center pb-5 display-4">LOGIN</h1>
-	  		<?php if (isset($_GET['error'])) { ?>
-	  		<div class="alert alert-danger" role="alert">
-			  <?=htmlspecialchars($_GET['error'])?>
-			</div>
-		    <?php } ?>
-		  <div class="mb-3">
-		    <label for="exampleInputEmail1" 
-		           class="form-label">Email or Username
-		    </label>
-		    <input type="text" 
-		           name="userInfo" 
-		           value="<?php if(isset($_GET['userInfo']))echo(htmlspecialchars($_GET['userInfo'])) ?>" 
-		           class="form-control" 
-		  </div>
-		  <div class="mb-3">
-		    <label for="exampleInputPassword1" 
-		           class="form-label">Password
-		    </label>
-		    <input type="password" 
-		           class="form-control" 
-		           name="password" 
-		           id="exampleInputPassword1">
-		  </div>
-		  <div>
-		  <label 
-		           class="form-label">
-				   <a href="register.php">register
-					   
-				   </a>
-		    </label>
-		  </button>
-		  </div>
-		  <button type="submit" 
-		  		name="login"
-		          class="btn btn-primary">LOGIN
-		  </button>
-		</form>
-	  </div>
+
+<div class="main">
+<section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
+                        <a href="register.php" class="signup-image-link">Create an account</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="login-form" action="auth.php">
+						<?php if (isset($_GET['error'])) { ?>
+	  					<div class="alert alert-danger" role="alert">
+			  			<?=htmlspecialchars($_GET['error'])?>
+						</div>
+		    			<?php } ?>
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="userInfo" id="your_name" placeholder="Email or Username" value="<?php if(isset($_COOKIE['USERINFO']))echo(htmlspecialchars($_COOKIE['USERINFO'])) ?>" />
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="your_pass" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term"/>
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="login" id="signin" class="form-submit" value="Log in"/>
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <span class="social-label">Or login with</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+						</div>
+
+		 
 </body>
 </html>
 
