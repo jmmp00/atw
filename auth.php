@@ -42,6 +42,7 @@ if (isset($_POST['login'])){
 						$_SESSION['user_email'] = $user_email;
 						$_SESSION['user_name'] = $user_name;
 						$_SESSION['user_surname'] = $user_surname;
+						$_SESSION['user_username'] = $user_username;
 						header("Location: index.php");
 					}else {
 						header("Location: login.php?error=Incorect ".$userType." or password&username=$userInfo");
@@ -69,7 +70,6 @@ if (isset($_POST['register'])){
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-		echo $hash;
 		if (empty($email)) {
 			header("Location: login.php?error=Email is required");
 		}else if (empty($password)){

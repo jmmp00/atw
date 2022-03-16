@@ -1,7 +1,7 @@
 <?php 
  session_start();
 
-  if (isset($_SESSION['login'])) { 
+  if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) { 
 ?>
 <!DOCTYPE html>	
 <html lang="en">
@@ -24,6 +24,6 @@
 </html>
 <?php 
 }else {
-   header("Location: login.php");
+   header("location: login.php");
 }
  ?>
