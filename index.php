@@ -1,9 +1,9 @@
 <?php 
  session_start();
 
-  if (isset($_SESSION['user_id']) && isset($_SESSION['user_email'])) { 
+  if (isset($_SESSION['login'])) { 
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html lang="en">
 <head>
 	<meta charset="UTF-8">

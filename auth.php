@@ -3,14 +3,14 @@ session_start();
 include 'db_conn.php';
 if (isset($_POST['login'])){
 	if (isset($_POST['password']) && isset($_POST['userInfo'])) {
-		function checkEmail($email) {
+		function checkIfEmail($email) {
 			$find1 = strpos($email, '@');
 			$find2 = strpos($email, '.');
 			return ($find1 !== false && $find2 !== false && $find2 > $find1);
 		}
 		$userInfo = $_POST['userInfo'];
 		$password = $_POST['password'];
-		if(checkEmail($userInfo)){
+		if(checkIfEmail($userInfo)){
 			$userType = "email";
 		}else{
 			$userType = "username";
@@ -36,7 +36,7 @@ if (isset($_POST['login'])){
 					if (password_verify($password, $user_password)) { 
 						if(isset($_POST['remember-me'])){
 							setcookie('USERINFO', $userInfo, time() + 60*60*24*30);
-							setcookie('PASSWORD', $password, time() + 60*60*24*30);
+							
 						}
 						$_SESSION['user_id'] = $user_id;
 						$_SESSION['user_email'] = $user_email;
