@@ -71,14 +71,28 @@ if (isset($_POST['register'])){
 		$password = $_POST['password'];
 		$hash = password_hash($password, PASSWORD_DEFAULT);
 		if (empty($email)) {
-			header("Location: login.php?error=Email is required");
+			header("Location: register.php?error=Email is required");
 		}else if (empty($password)){
-			header("Location: login.php?error=Password is required&email=$email");
+			header("Location: register.php?error=Password is required&email=$email");
 		}else {
-			$stmt = $conn->prepare("INSERT INTO user (name,surname,email,username,password) VALUES (?,?,?,?,?)");
-			$stmt->execute([$name,$surname,$email,$username,$hash]);
-		}
-		header("Location: index.php");	
+			if($password != $re_password){
+				header("Location: register.php?error=Passwords must match");
+			}else{
+				$stmt = $conn->prepare("SELECT * FROM user WHERE email=?");
+				$stmt->execute([$email]);
+				$stm= $conn->prepare("SELECT * FROM user WHERE username=?");
+				$stm->execute([$username]);
+				if($stmt->rowCount() >= 1){
+					header("Location: register.php?error=Email already exists");
+				}elseif($stm->rowCount() >= 1){
+					header("Location:  register.php?error=Username already exists");
+				}else{
+				$stmt = $conn->prepare("INSERT INTO user (name,surname,email,username,password) VALUES (?,?,?,?,?)");
+				$stmt->execute([$name,$surname,$email,$username,$hash]);
+				header("Location: login.php");
+				}	
+			}
+		}	
 	}
 	}
 }

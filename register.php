@@ -29,11 +29,11 @@
                             </div>
 							<div class="form-group">
                                 <label for="surname"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="surname" id="name" placeholder="Your Surname"/>
+                                <input type="text" name="surname" id="surname" placeholder="Your Surname"/>
                             </div>
 							<div class="form-group">
                                 <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="username" id="name" placeholder="Your Username"/>
+                                <input type="text" name="username" id="username" placeholder="Your Username"/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
@@ -48,8 +48,11 @@
                                 <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
                             </div>
                             <div class="form-group">
+                                <span id="result"></span>
+                            </div>
+                            <div class="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                                <label for="agree-term" class="label-agree-term"><span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="register" id="signup" class="form-submit" value="Register"/>
@@ -65,6 +68,32 @@
         </section>
 
 						</div>
+                        <script>
+                            let name = document.querySelector('#name');
+                            let surname = document.querySelector('#surname');
+                            let username = document.querySelector('#username');
+                            let email = document.querySelector('#email');
+                            let pass1 = document.querySelector('#pass');
+                            let pass2 = document.querySelector('#re_pass');
+                            let result = document.querySelector('#result');
+                            let button = document.querySelector('#signup');
+
+                            function checkPassword () {
+                                if (pass2.value ==""){
+                                    result.innerText = "";
+                                }else{
+                                    result.innerText = pass1.value == pass2.value ? 'Passwords match' : 'Passwords do not match';
+                                    result.value = pass1.value == pass2.value ? '1' : '0';
+                                    result.style.color = pass1.value == pass2.value ? 'green' : 'red';
+                                    button.disabled = pass1.value == pass2.value ? false : true;
+                                    button.style.cursor = pass1.value == pass2.value ? 'pointer' : 'not-allowed';
+                                }                
+                            }
+                            pass1.addEventListener('keyup', () => {
+                            if (pass2.value.length != 0) checkPassword();
+                            })
+                            pass2.addEventListener('keyup', checkPassword);
+                        </script>
 
 
 	  
