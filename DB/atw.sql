@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Mar-2022 às 19:24
+-- Tempo de geração: 17-Mar-2022 às 16:32
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.12
 
@@ -24,6 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `terms`
+--
+
+CREATE TABLE `terms` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `description` varchar(140) NOT NULL,
+  `timestamp` date NOT NULL,
+  `username` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `user`
 --
 
@@ -33,13 +47,26 @@ CREATE TABLE `user` (
   `surname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(300) NOT NULL,
   `avatar` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Extraindo dados da tabela `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `surname`, `email`, `username`, `password`, `avatar`) VALUES
+(4, 'Joana', 'Pinheiro', 'joana_mafalda_magalhaes@hotmail.com', 'juju', '$2y$10$o0j9SMKxgR57K9rznm79D.aXgJ3S7SaD5vIARVdC91M74g1XAUFFq', NULL);
+
+--
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `terms`
+--
+ALTER TABLE `terms`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `user`
@@ -52,10 +79,16 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT de tabela `terms`
+--
+ALTER TABLE `terms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
