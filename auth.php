@@ -132,8 +132,18 @@ if (isset($_POST["register"])) {
                                 "Location:  register.php?error=Username already exists"
                             );
                         } else {
+                            function generateRandomString($length = 25) { // function to generate random string
+                                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                                $charactersLength = strlen($characters);
+                                $randomString = '';
+                                for ($i = 0; $i < $length; $i++) {
+                                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                                }
+                                return $randomString;
+                            }
+                            $token = generateRandomString(7);
                             $stmt = $conn->prepare(
-                                "INSERT INTO user (name,surname,email,username,password) VALUES (?,?,?,?,?)"
+                                "INSERT INTO user (name,surname,email,username,password,token) VALUES (?,?,?,?,?,?)"
                             );
                             $stmt->execute([
                                 $name,
@@ -141,8 +151,18 @@ if (isset($_POST["register"])) {
                                 $email,
                                 $username,
                                 $hash,
+                                $token,
                             ]);
-                            header("Location: login.php");
+                            $_SESSION["user_email"] = $email;
+                            
+                            ini_set("SMTP", "smtp.server.com");//confirm smtp
+                            $to = $email; //$_SESSION["email"];
+                            $subject = "Validation Token";
+                            $message = "validate your e-mail with this code: " . $token;
+                            $from = "pedrofiliperocha2001@gmail.com";
+                            $headers = "From: $from";
+                            mail($to,$subject,$message,$headers);
+                            header("Location: verifyEmail.php");
                         }
                     }
                 }
@@ -153,4 +173,32 @@ if (isset($_POST["register"])) {
 			);
 		}
     }
+}
+
+if (isset($_POST["verify"])) {
+    if (isset($_POST["token"])) {
+    $email = $_SESSION['user_email'];
+    $token = $_POST["token"];
+    $stmt = $conn->prepare(
+        "SELECT token FROM user WHERE email=?"
+    );
+    $stmt->execute([$email]);
+    $result = $stmt->fetch();
+    $db_token = $result["token"];
+    if($token == $db_token){
+        $stmt = $conn->prepare(
+            "UPDATE atw.user SET status = 1 WHERE email = ?"
+        );
+        $stmt->execute([$email]);
+        header("Location:  login.php");
+    }else if($token == "" || $token == " "){
+        header(
+            "Location:  verifyEmail.php?error=Please insert the code before submiting"
+            );
+    }else{
+        header(
+            "Location:  verifyEmail.php?error=The code doesn't match"
+            );
+    }
+}
 }
