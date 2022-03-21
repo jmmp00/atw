@@ -24,9 +24,8 @@
 
 							<!-- Logo -->
 								<a href="index.php" class="logo">
-									<span class="title">Website title</span>
+									<img align="left" src="images/logo2.png" height="55" />
 								</a>
-
 							<!-- Nav -->
 								<nav>
 									<ul>
@@ -39,23 +38,26 @@
         					<a href="logout.php" class="button" style="position:absolute; right:100px; top:20px;font-size: 1rem">LOGOUT</a>
 							</div>
 					</header>
-
+					<hr>
 				<!-- Menu -->
-					<nav id="menu">
+				<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
-							<li><a href="index.php">Home</a></li>
+						<li><a href="index.php" class="active">Home</a></li>
 
-							<li><a href="terms.php" class="active">Terms</a></li>
+						<li><a href="terms.php">Terms</a></li>
 
-							<li><a href="contact.php">Contact Us</a></li>
+						<li><a href="addterm.php">Add term</a></li>
+
+						<li><a href="contact.php">Contact Us</a></li>
+						
 						</ul>
 					</nav>
 
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Terms</h1>
+							<h1>All terms</h1>
 
 							<div class="image main">
 								<img src="images/banner-image-3-1920x500.jpg" class="img-fluid" alt="" />
@@ -66,40 +68,27 @@
 									<div class="col-9">
 										<div class="row">
 											<div class="col-sm-6 text-center">
-												<h2 class="m-n"><a href="blog-post.html">Title.</a></h2>
+												<?php
+												$conn = mysqli_connect("localhost", "root", "admin", "atw");
+												if ($conn-> connect_error){
+   													die("Connection failed:". $conn-> connect_error);
+												}
 
-												<p> Author &nbsp;|&nbsp; Date</p>
-											</div>
-
-											<div class="col-sm-6 text-center">
-												<h2 class="m-n"><a href="blog-post.html">Title.</a></h2>
-
-												<p> Author &nbsp;|&nbsp; Date</p>
-											</div>
-
-											<div class="col-sm-6 text-center">
-												<h2 class="m-n"><a href="blog-post.html">Title.</a></h2>
-
-												<p> Author &nbsp;|&nbsp; Date</p>
-											</div>
-
-											<div class="col-sm-6 text-center">
-												<h2 class="m-n"><a href="blog-post.html">Title.</a></h2>
-
-												<p> Author &nbsp;|&nbsp; Date</p>
-											</div>
-
-											<div class="col-sm-6 text-center">
-												<h2 class="m-n"><a href="blog-post.html">Title.</a></h2>
-
-												<p> Author &nbsp;|&nbsp; Date</p>
-											</div>
-
-											<div class="col-sm-6 text-center">
-												<h2 class="m-n"><a href="blog-post.html">Title.</a></h2>
-
-												<p> Author &nbsp;|&nbsp; Date</p>
-											</div>
+												$sql= "SELECT * FROM terms" ;
+												$result= $conn-> query($sql);
+												while ($row= $result-> fetch_assoc()){
+													
+												$id=$row['id'];
+     												echo '<h2><a href="'. $id .'.php">', $row["title"], '</a></h2>';
+     												echo $row["description"];
+													echo "<br>";
+      												echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
+													echo "<br>";
+												}	
+											
+												$conn-> close();										 
+												?>
+											</div>			
 										</div>
 									</div>
 

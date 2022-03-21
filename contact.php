@@ -24,7 +24,7 @@
 
 							<!-- Logo -->
                                 <a href="index.php" class="logo">
-									<span class="title">Website title</span>
+									<img align="left" src="images/logo2.png" height="55" />
 								</a>
 
 							<!-- Nav -->
@@ -40,63 +40,70 @@
 							    </div>
 						</div>
 					</header>
-
+                    <hr>
 				<!-- Menu -->
-					<nav id="menu">
+				<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
-                        <li><a href="index.php">Home</a></li>
+						<li><a href="index.php" >Home</a></li>
 
-                        <li><a href="terms.php">Terms</a></li>
+						<li><a href="terms.php" >Terms</a></li>
 
-                        <li><a href="contact.php" class="active">Contact Us</a></li>
+						<li><a href="addterm.php">Add term</a></li>
+
+						<li><a href="contact.php" class="active">Contact Us</a></li>
+						
 						</ul>
 					</nav>
 
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Contact Us</h1>
-							<span class="image main"><img src="images/map.jpg" alt="" /></span>
-                            <h3 style="margin: 0">Projeto ATW</h3>
-								<small style="margin: 0">Criação de um site para a cadeira de ATW.</small>
-							
-						</div>
+                            <section>
+							<h3 style="margin: 0">About</h3>
+							<small style="margin: 0">Project objective: creating a website for ATW.</small>
+                            </section>
+                            
+                            <br><br>
+
+                            <section>
+							<h3 style="margin: 0">Contact Us</h3>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field half">
+										<input type="text" name="name" id="name" placeholder="Name" />
+									</div>
+
+									<div class="field half">
+										<input type="text" name="email" id="email" placeholder="Email" />
+									</div>
+
+									<div class="field">
+										<input type="text" name="subject" id="subject" placeholder="Subject" />
+									</div>
+
+									<div class="field">
+										<textarea name="message" id="message" rows="3" placeholder="Message"></textarea>
+									</div>
+
+									<div class="field text-right">
+										<label>&nbsp;</label>
+
+										<ul class="actions">
+											<li><input type="submit" value="Send" class="primary" /></li>
+										</ul>
+									</div>
+								</div>
+							</form>
+						    </section>
+                            
+                            
+                        </div>
 					</div>
 
 				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
-						<section>
-								<h2>Contact Us</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-
-										<div class="field half">
-											<input type="text" name="email" id="email" placeholder="Email" />
-										</div>
-
-										<div class="field">
-											<input type="text" name="subject" id="subject" placeholder="Subject" />
-										</div>
-
-										<div class="field">
-											<textarea name="message" id="message" rows="3" placeholder="Message"></textarea>
-										</div>
-
-										<div class="field text-right">
-											<label>&nbsp;</label>
-
-											<ul class="actions">
-												<li><input type="submit" value="Send" class="primary" /></li>
-											</ul>
-										</div>
-									</div>
-								</form>
-							</section>
 							<section>
 								<h2>Contact Info</h2>
 
