@@ -13,7 +13,7 @@
   
 <body>
     <center>
-        <h1>Storing Form data in Database</h1>
+        <h1>Add a new term to the website:</h1>
   
         <form action="add.php" method="post">
                           
