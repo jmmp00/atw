@@ -31,6 +31,9 @@
               
             <input type="submit" value="Submit">
         </form>
+        <br>
+        <a href="javascript:history.back()"><button>Go Back</button></a>  
+
     </center>
 </body>
   
