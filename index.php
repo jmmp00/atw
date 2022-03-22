@@ -25,7 +25,7 @@
 						<div class="inner">
 							<!-- Logo -->
 								<a href="index.php" class="logo">
-									<span class="title">Website title</span>
+									<img align="left" src="images/logo2.png" height="55" />
 								</a>
 							<!-- Nav -->
 								<nav>
@@ -40,16 +40,18 @@
         					<a href="logout.php" class="button" style="position:absolute; right:100px; top:20px;font-size: 1rem">LOGOUT</a>
 							</div>
 					</header>
-
 				<!-- Menu -->
 					<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
 						<li><a href="index.php" class="active">Home</a></li>
 
-						<li><a href="terms.php">Terms</a></li>
+						<li><a href="terms.php" >Terms</a></li>
+
+						<li><a href="addterm.php">Add term</a></li>
 
 						<li><a href="contact.php">Contact Us</a></li>
+						
 						</ul>
 					</nav>
 
@@ -91,42 +93,28 @@
 							<h2 class="h2">Latest terms posted&nbsp;<i class="fa fa-level-down"></i></h2>
 							<br>
 							<div class="row">
-								<div class="col-sm-4 text-center">
 
-								<h2 class="m-n"><a href="#">Title 1.</a></h2>
-									<br>
-									<p> John Doe &nbsp;|&nbsp; 12/06/2020 10:30</p>
+								<div class="col-sm-4 text-center" style="position:center">
+								<?php
+												$conn = mysqli_connect("localhost", "root", "admin", "atw");
+												if ($conn-> connect_error){
+   													die("Connection failed:". $conn-> connect_error);
+												}
+
+												$sql= "SELECT * FROM terms" ;
+												$result= $conn-> query($sql);
+												while ($row= $result-> fetch_assoc()){
+													
+												$id=$row['id'];
+     												echo '<h2><a href="'. $id .'.php">', $row["title"], '</a></h2>';
+     												echo $row["description"];
+													echo "<br>";
+      												echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
+												}	
+												$conn-> close();										 
+												?>
 								</div>
 
-								<div class="col-sm-4 text-center">
-									<h2 class="m-n"><a href="#">Title 2.</a></h2>
-									<br>
-									<p> John Doe &nbsp;|&nbsp; 12/06/2020 10:30</p>
-								</div>
-
-								<div class="col-sm-4 text-center">
-									<h2 class="m-n"><a href="#">Title 3.</a></h2>
-									<br>
-									<p> John Doe &nbsp;|&nbsp; 12/06/2020 10:30</p>
-								</div>
-
-								<div class="col-sm-4 text-center">
-									<h2 class="m-n"><a href="#">Title 4.</a></h2>
-									<br>
-									<p> John Doe &nbsp;|&nbsp; 12/06/2020 10:30</p>
-								</div>
-
-								<div class="col-sm-4 text-center">
-									<h2 class="m-n"><a href="#">Title 5.</a></h2>
-									<br>
-									<p> John Doe &nbsp;|&nbsp; 12/06/2020 10:30</p>
-								</div>
-
-								<div class="col-sm-4 text-center">
-									<h2 class="m-n"><a href="#">Title 6.</a></h2>
-									<br>
-									<p> John Doe &nbsp;|&nbsp; 12/06/2020 10:30</p>
-								</div>
 							</div>
 
 							<p class="text-center"><a href="terms.php">Read More &nbsp;<i class="fa fa-long-arrow-right"></i></a></p>
