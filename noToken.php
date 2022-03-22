@@ -1,7 +1,7 @@
 <?php 
   session_start();
 
-  if (!isset($_SESSION['user_id'])) { 
+  if (!isset($_SESSION['user_id']) && isset($_COOKIE["TOKEN"]) && $_COOKIE["TOKEN"]) { 
 ?>
 <!DOCTYPE html>
 <html lang="en">

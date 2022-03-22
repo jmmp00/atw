@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "db_conn.php";
+include "db_conn.php";  
+include_once 'template.php';
 if (isset($_POST["login"])) {
     if (isset($_POST["password"]) && isset($_POST["userInfo"])) {
         function checkIfEmail($email)
@@ -161,7 +162,12 @@ if (isset($_POST["register"])) {
                                 $hash,
                                 $token,
                             ]);
-                            $_SESSION["user_email"] = $email;                         
+                            $_SESSION["user_email"] = $email; 
+                            setcookie(
+                                "TOKEN",
+                                true,
+                                time() + 60 * 60 * 24 * 30
+                            );                        
                             sendEmail($email,$token);
                             header("Location: verifyEmail.php");
                         }
@@ -225,10 +231,9 @@ if (isset($_POST["noToken"])) {
             $stm->execute([$token]);
             if ( false===$stmt ) {
                 echo'prepare() failed: ' . htmlspecialchars($conn->error);
-                echo "pixa";
             }
-            sendEmail($email,$token)
-            $_SESSION["user_email"] = $email;
+            sendEmail($email,$token);
+            $_SESSION["user_email"] = $email; 
             header("Location: verifyEmail.php");
         }   
     }
@@ -249,13 +254,16 @@ if (isset($_POST["resend"])) {
 }
 
 function sendEmail($email,$token){
+    $_SESSION["user_token"] = $token;
     ini_set("SMTP", "smtp.server.com");//confirm smtp
-    $to = $email; //$_SESSION["email"];
-    $subject = "Validation Token";
-    $message = "validate your e-mail with this code: " . $token;
-    $from = "pedrofiliperocha2001@gmail.com";
-    $headers = "From: $from";
-    mail($to,$subject,$message,$headers);
+    $to = $email;  
+    $subject = "Test mail";  
+    $message = "Hello! This is a simple email message.";  
+    $from = "pedrofiliperocha2001@gmail.com";  
+    $headers = "MIME-Version: 1.0" . "\r\n"; 
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
+    $text = Template::get_contents("template.html", array('token' => $token));
+    mail($to, $subject, $text, $headers); 
 }
 function generateRandomString($length = 25) { // function to generate random string
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
