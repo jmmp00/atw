@@ -15,7 +15,7 @@
     <center>
         <h1>Add a new term to the website:</h1>
   
-        <form action="add.php" method="post">
+        <form action="addt.php" method="post">
                           
 <p>
                 <label for="title">Title</label>
@@ -25,14 +25,13 @@
                 <label for="description">Description</label>
                 <input type="text" name="description" id="description">
             </p>
-  
-  
-  
-              
+
             <input type="submit" value="Submit">
         </form>
         <br>
-        <a href="javascript:history.back()"><button>Go Back</button></a>  
+        <a href="javascript:history.back()">
+            <button>Go Back</button>
+        </a>  
 
     </center>
 </body>
