@@ -1,7 +1,7 @@
 <?php 
   session_start();
 
-  if (isset($_SESSION['user_email'])) { 
+  if (!isset($_SESSION['user_id'])) { 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@
           <div class="signin-content">
             <div class="verify-email-form">
               <h2 class="form-title"><center>Verify Email!</center></h2>
-              <form method="POST" class="register-form" id="login-form" action="auth.php"> <?php if (isset($_GET['error'])) { ?> <div class="alert alert-danger" role="alert" style="display:block"> <?=htmlspecialchars($_GET['error']);?> </div> <?php  } ?>
+              <form method="POST" class="register-form" id="login-form" action="auth.php"> <?php if (isset($_GET['error'])) { ?> <div class="alert alert-danger" role="alert" style="display:block"> <?=htmlspecialchars($_GET['error']);?> </div> <?php  }elseif (isset($_GET['sucess'])){ ?>  <div class="alert alert-success" role="alert" style="display:block"> <?=htmlspecialchars($_GET['sucess']);?> </div> <?php  } ?>
               <div class="alert alert-success" role="alert" style="display:block">We've sent a verification code to your email - <?php echo htmlspecialchars($_SESSION['user_email']);?></div>  
               <div class="form-group">
               <label for="your_name">
@@ -30,7 +30,10 @@
                   <input type="text" name="token" />
                 </div>
                 <div class="form-group form-button">
-                 <center> <input type="submit" name="verify" id="signin" class="form-submit" value="verify" /></center>
+                 <center> 
+                   <input type="submit" name="verify" class="form-submit" value="verify" />
+                   <input type="submit" name="resend" class="form-submit" value="resend code" />
+                  </center>
                 </div>
               </form>
             </div>
@@ -45,6 +48,6 @@
 </html>
 <?php 
 }else {
-   header("Location: index.php");
+   header("Location: login.php");
 }
  ?>

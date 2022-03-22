@@ -39,8 +39,17 @@ if (isset($_POST["login"])) {
                 $user_password = $user["password"];
                 $user_name = $user["name"];
                 $user_surname = $user["surname"];
-                if ($userInfo === $userInfo) {
+                $user_status = $user["status"];
+                echo $user_status;
+                echo $userInfo;
+                echo $user_email;
+                if ($userInfo == $user_email || $userInfo == $user_username) {
                     if (password_verify($password, $user_password)) {
+                        echo $user_status;
+                        if($user_status == 1){
+                            echo $user_status;
+
+                        
                         if (isset($_POST["remember-me"])) {
                             setcookie(
                                 "USERINFO",
@@ -54,13 +63,20 @@ if (isset($_POST["login"])) {
                         $_SESSION["user_surname"] = $user_surname;
                         $_SESSION["user_username"] = $user_username;
                         header("Location: index.php");
+                        }else{
+                            header(
+                                "Location: noToken.php"
+                            );
+                        }
                     } else {
                         header(
                             "Location: login.php?error=Incorect " .
                                 $userType .
                                 " or password&username=$userInfo"
                         );
-                    }
+                    
+                
+            }
                 } else {
                     header(
                         "Location: login.php?error=Incorect " .
@@ -132,15 +148,7 @@ if (isset($_POST["register"])) {
                                 "Location:  register.php?error=Username already exists"
                             );
                         } else {
-                            function generateRandomString($length = 25) { // function to generate random string
-                                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                                $charactersLength = strlen($characters);
-                                $randomString = '';
-                                for ($i = 0; $i < $length; $i++) {
-                                    $randomString .= $characters[rand(0, $charactersLength - 1)];
-                                }
-                                return $randomString;
-                            }
+                            
                             $token = generateRandomString(7);
                             $stmt = $conn->prepare(
                                 "INSERT INTO user (name,surname,email,username,password,token) VALUES (?,?,?,?,?,?)"
@@ -153,15 +161,8 @@ if (isset($_POST["register"])) {
                                 $hash,
                                 $token,
                             ]);
-                            $_SESSION["user_email"] = $email;
-                            
-                            ini_set("SMTP", "smtp.server.com");//confirm smtp
-                            $to = $email; //$_SESSION["email"];
-                            $subject = "Validation Token";
-                            $message = "validate your e-mail with this code: " . $token;
-                            $from = "pedrofiliperocha2001@gmail.com";
-                            $headers = "From: $from";
-                            mail($to,$subject,$message,$headers);
+                            $_SESSION["user_email"] = $email;                         
+                            sendEmail($email,$token);
                             header("Location: verifyEmail.php");
                         }
                     }
@@ -190,6 +191,10 @@ if (isset($_POST["verify"])) {
             "UPDATE atw.user SET status = 1 WHERE email = ?"
         );
         $stmt->execute([$email]);
+        $stm = $conn->prepare(
+            "UPDATE atw.user SET token = NULL WHERE email = ?"
+        );
+        $stm->execute([$email]);
         header("Location:  login.php");
     }else if($token == "" || $token == " "){
         header(
@@ -201,4 +206,63 @@ if (isset($_POST["verify"])) {
             );
     }
 }
+}
+
+
+if (isset($_POST["noToken"])) {
+    if (isset($_POST["email"])) {
+        $email = $_POST["email"];
+        $stmt = $conn->prepare(
+            "SELECT * FROM user WHERE email=?"
+        );
+        $stmt->execute([$email]);
+  
+        if ($stmt->rowCount() >= 1) {
+            $token = generateRandomString(7);
+            $stm = $conn->prepare(
+                "UPDATE atw.user SET token = ? WHERE email = '$email'"
+            );
+            $stm->execute([$token]);
+            if ( false===$stmt ) {
+                echo'prepare() failed: ' . htmlspecialchars($conn->error);
+                echo "pixa";
+            }
+            sendEmail($email,$token)
+            $_SESSION["user_email"] = $email;
+            header("Location: verifyEmail.php");
+        }   
+    }
+}
+
+if (isset($_POST["resend"])) {
+        $email = $_SESSION["user_email"];
+        $stmt = $conn->prepare(
+            "SELECT token FROM user WHERE email=?"
+        );
+        $stmt->execute([$email]);
+        if ($stmt->rowCount() >= 1) {
+            $result = $stmt->fetch();
+            $token = $result['token'];
+            sendEmail($email,$token);
+            header("Location: verifyEmail.php?sucess=The code has been resent to your email");
+        }   
+}
+
+function sendEmail($email,$token){
+    ini_set("SMTP", "smtp.server.com");//confirm smtp
+    $to = $email; //$_SESSION["email"];
+    $subject = "Validation Token";
+    $message = "validate your e-mail with this code: " . $token;
+    $from = "pedrofiliperocha2001@gmail.com";
+    $headers = "From: $from";
+    mail($to,$subject,$message,$headers);
+}
+function generateRandomString($length = 25) { // function to generate random string
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
 }
