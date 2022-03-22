@@ -23,8 +23,8 @@
 						<div class="inner">
 
 							<!-- Logo -->
-                                <a href="index.php" class="logo">
-									<img align="left" src="images/logo2.png" height="55" />
+								<a href="index.php" class="logo">
+								<span class="title">Scrabble</span><span class="fa fa-pencil"></span>
 								</a>
 
 							<!-- Nav -->

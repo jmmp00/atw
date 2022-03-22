@@ -4,8 +4,6 @@
   if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) { 
 ?>
 
-
-<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Home page</title>
@@ -25,7 +23,7 @@
 						<div class="inner">
 							<!-- Logo -->
 								<a href="index.php" class="logo">
-									<img align="left" src="images/logo2.png" height="55" />
+								<span class="title">Scrabble</span><span class="fa fa-pencil"></span>
 								</a>
 							<!-- Nav -->
 								<nav>
@@ -83,25 +81,26 @@
 						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 						    <span class="sr-only">Next</span>
 						  </a>
-						</div>
+					</div>
 
 						<br>
 						<br>
-
 						<div class="inner">
-							<!-- About Us -->
-							<h2 class="h2">Latest terms posted&nbsp;<i class="fa fa-level-down"></i></h2>
+                        <h3 class="h3">Latest terms posted&nbsp;<i class="fa fa-level-down"></i></h3>
 							<br>
-							<div class="row">
-
-								<div class="col-sm-4 text-center" style="position:center">
-								<?php
+							
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-9">
+										<div class="row">
+											<div class="col-sm-6 text-center">
+                                                <?php
 												$conn = mysqli_connect("localhost", "root", "admin", "atw");
 												if ($conn-> connect_error){
    													die("Connection failed:". $conn-> connect_error);
 												}
 
-												$sql= "SELECT * FROM terms" ;
+												$sql= "SELECT * FROM `terms` ORDER BY id DESC LIMIT 5;" ;
 												$result= $conn-> query($sql);
 												while ($row= $result-> fetch_assoc()){
 													
@@ -113,16 +112,40 @@
 												}	
 												$conn-> close();										 
 												?>
+											</div>
+
+											
+										</div>
+                                        <p class="text-center">
+                                            <a href="terms.php">Read More &nbsp;<i class="fa fa-long-arrow-right"></i>
+                                            </a>
+                                        </p>
+									</div>
+
+
+									<div class="col-3">
+										<div class="form-group">
+                                        <h4>Search for a term</h4>
+				                        </div>
+
+										<div class="form-group">
+				                            <div class="input-group">
+				                                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+
+				                                <span class="input-group-addon"><a href="#"><i class="fa fa-search"></i></a></span>
+				                            </div>
+				                        </div>
+
+				                        <br>
+
+				                        </div>
 								</div>
-
 							</div>
-
-							<p class="text-center"><a href="terms.php">Read More &nbsp;<i class="fa fa-long-arrow-right"></i></a></p>
 						</div>
 					</div>
 
 				<!-- Footer -->
-					<footer id="footer">
+                <footer id="footer">
 						<div class="inner">
 							
 							<section>
@@ -145,7 +168,7 @@
 							</section>
 
 							<ul class="copyright">
-							<li>Copyright © 2020 Company Name </li>
+							<li>Copyright © 2022 Company Name </li>
 							<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
 							</ul>
 						</div>
@@ -169,6 +192,3 @@
    header("location: login.php");
 }
  ?>
-
-
-

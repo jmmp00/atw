@@ -48,7 +48,9 @@
     <a href="terms.php">  
        <button>Term page</button>  
     </a>
-
+    <a href="javascript:history.back()">
+        <button>Go Back</button>
+    </a>  
     </center>
 </body>
   

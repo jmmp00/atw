@@ -24,7 +24,7 @@
 
 							<!-- Logo -->
 								<a href="index.php" class="logo">
-									<img align="left" src="images/logo2.png" height="55" />
+								<span class="title">Scrabble</span><span class="fa fa-pencil"></span>
 								</a>
 							<!-- Nav -->
 								<nav>
@@ -57,7 +57,7 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>All terms</h1>
+						<h3 style="margin: 0">All terms</h3>
 
 							<div class="image main">
 								<img src="images/banner-image-3-1920x500.jpg" class="img-fluid" alt="" />
