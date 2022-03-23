@@ -205,43 +205,49 @@ $(document).ready(function(){
                         <th>#</th>
                         <th>Name</th>						
                         <th>Username</th>
-                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Account Type</th>
+                        <th>Status</th>
+                        <th></th>
 
 
                     </tr>
                 </thead>
                 <tbody>
                     
-                                                <?php
-												$conn = mysqli_connect("localhost", "root", "admin", "atw");
-												if ($conn-> connect_error){
-   													die("Connection failed:". $conn-> connect_error);
-												}
+                    <?php
+                    $conn = mysqli_connect("localhost", "root", "admin", "atw");
+                    if ($conn-> connect_error){
+                        die("Connection failed:". $conn-> connect_error);
+                    }
 
-												$sql= "SELECT * FROM `user`";
-												$result= $conn-> query($sql);
-												while ($row= $result-> fetch_assoc()){
-												
-     												echo '<td>'. $row['id'] .'</td>';
-     												echo '<td>'. $row['name'] .' ' . $row['surname'] .'</td>';
-                                                    echo '<td>'. $row['username'] .'</td>';
-                                                    echo '<td>'. $row['accountType'] .'</td>';
-												}	
-												$conn-> close();										 
-												?>
+                    $sql= "SELECT * FROM `user`";
+                    $result= $conn-> query($sql);
+                    while ($row= $result-> fetch_assoc()){
+                    ?>
+                    <tr>
+                    <td> <?php echo $row['id']; ?> </td>
+                    <td> <?php echo $row['name'] .' ' . $row['surname']; ?> </td>
+                    <td> <?php echo $row['username']; ?> </td>
+                    <td> <?php echo $row['email']; ?> </td>
+                    <td> <?php echo $row['accountType']; ?> </td>
+                    <td> active/inactive </td>
+                    <td>
+                      <a href="delete.php?del=<?php echo $row['id']; ?>" class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                     </td>
+                    	
+
+                    <?php
+                    }
+                    $conn-> close();										 
+                    ?>
    
-                        <td>
-                            <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-                        </td>
+                        
                     
-                    
+                        </tr>
                 </tbody>
             </table>
-            <div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-
-            </div>
+ 
         </div>
     </div>
 </div>     

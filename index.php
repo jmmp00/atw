@@ -32,9 +32,10 @@
 									</ul>
 								</nav>
 
-							<!-- Logout button-->
+							<!-- Logout button&username -->
 							<div style="min-height: 1vh;">
-        					<i class="fa fa-user" aria-hidden="true" style="float: right;"></i><h1 class="text-right display-6" style="margin-top: -40px; font-size: 1rem"><?=$_SESSION['user_name'] . " ".$_SESSION['user_surname']?>&nbsp;</h1>
+        					<i class="fa fa-user" aria-hidden="true" style="float: right;"></i><h1 class="text-right display-6" style="margin-top: -40px; font-size: 1rem">
+							<?=$_SESSION['user_name'] . " ".$_SESSION['user_surname']?>&nbsp;</h1>
         					<a href="logout.php" class="button" style="position:absolute; right:100px; top:20px;font-size: 1rem">LOGOUT</a>
 							</div>
 					</header>
@@ -47,6 +48,8 @@
 						<li><a href="terms.php" >Terms</a></li>
 
 						<li><a href="addterm.php">Add term</a></li>
+
+						<li><a href="mgmt.php">Manage users</a></li>
 
 						<li><a href="contact.php">Contact Us</a></li>
 						

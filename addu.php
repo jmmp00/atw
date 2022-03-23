@@ -8,7 +8,7 @@
 <html>
   
 <head>
-    <title>New term added!</title>
+    <title>New user added!</title>
 </head>
   
 <body>
@@ -26,13 +26,13 @@
         // Taking all 5 values from the form data(input)
         $name =  $_REQUEST['name'];
         $surname = $_REQUEST['surname'];
-        $username=$_SESSION['username'];
-        $email=$_SESSION['email'];
-        $password=$_SESSION['password'];
-        $accountType=$_SESSION['accountType'];
+        $username=$_REQUEST['username'];
+        $email=$_REQUEST['email'];
+        $password=$_REQUEST['password'];
+        $accountType=$_REQUEST['accountType'];
           
         // Performing insert query execution
-        $sql = "INSERT INTO user  VALUES (NULL, '$name', '$surname', '$email', '$username', '$password', NULL, , '$accountType')";
+        $sql = "INSERT INTO user  VALUES (NULL, '$name', '$surname', '$email', '$username', '$password', NULL, '$accountType')";
           
         if(mysqli_query($conn, $sql)){
             echo "<h3>Submited with success!</h3>"; 
@@ -48,11 +48,11 @@
     <a href="index.php">  
        <button>Home page</button>  
     </a>
-    <a href="terms.php">  
-       <button>Term page</button>  
+    <a href="mgmt.php">  
+       <button>Manage Users page</button>  
     </a>
-    <a href="javascript:history.back()">
-        <button>Go Back</button>
+    <a href="adduser.php">
+        <button>Add another user</button>
     </a>  
     </center>
 </body>
