@@ -1,7 +1,7 @@
 <?php 
   session_start();
 
-  if (!isset($_SESSION['user_id'])) { 
+  if (!isset($_SESSION['user_id']) && isset($_SESSION['user_email'])) { 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +21,8 @@
           <div class="signin-content">
             <div class="verify-email-form">
               <h2 class="form-title"><center>Verify Email!</center></h2>
-              <form method="POST" class="register-form" id="login-form" action="auth.php"> <?php if (isset($_GET['error'])) { ?> <div class="alert alert-danger" role="alert" style="display:block"> <?=htmlspecialchars($_GET['error']);?> </div> <?php  }elseif (isset($_GET['sucess'])){ ?>  <div class="alert alert-success" role="alert" style="display:block"> <?=htmlspecialchars($_GET['sucess']);?> </div> <?php  } ?>
-              <div class="alert alert-success" role="alert" style="display:block">We've sent a verification code to your email - <?php echo htmlspecialchars($_SESSION['user_email']);?></div>  
+              <form method="POST" class="register-form" id="login-form" action="auth.php"> <?php if (isset($_GET['error'])) { ?> <div class="alert alert-danger" role="alert" style="display:block"> <?=htmlspecialchars($_GET['error']);?> </div> <?php  }elseif (isset($_GET['sucess'])){ ?>  <div class="alert alert-success" role="alert" style="display:block" id="resendSucess" style="display:block"> <?=htmlspecialchars($_GET['sucess']);?> </div> <?php  } ?>
+              <div class="alert alert-success" role="alert" id="emailSent" style="display:block">We've sent a verification code to your email - <?php echo htmlspecialchars($_SESSION['user_email']);?></div>  
               <div class="form-group">
               <label for="your_name">
                     <i class="zmdi zmdi-check-square"></i>
@@ -42,8 +42,13 @@
       </section>
     </div>
     <script> if (document.querySelector('.alert-danger').style.display == 'block'){
-                  document.querySelector('.alert-success').style.display = 'none'
-              }</script>
+                  document.querySelector('#emailSent').style.display = 'none';
+          
+              }
+              if (document.querySelector('#resendSucess').style.display == 'block'){
+                document.querySelector('#emailSent').style.display = 'none';
+              }
+              </script>
   </body>
 </html>
 <?php 
