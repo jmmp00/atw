@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "db_conn.php";  
-include_once 'template.php';
+include "db_conn.php";
+include_once "template.php";
 if (isset($_POST["login"])) {
     if (isset($_POST["password"]) && isset($_POST["userInfo"])) {
         function checkIfEmail($email)
@@ -47,27 +47,24 @@ if (isset($_POST["login"])) {
                 if ($userInfo == $user_email || $userInfo == $user_username) {
                     if (password_verify($password, $user_password)) {
                         echo $user_status;
-                        if($user_status == 1){
+                        if ($user_status == 1) {
                             echo $user_status;
 
-                        
-                        if (isset($_POST["remember-me"])) {
-                            setcookie(
-                                "USERINFO",
-                                $userInfo,
-                                time() + 60 * 60 * 24 * 30
-                            );
-                        }
-                        $_SESSION["user_id"] = $user_id;
-                        $_SESSION["user_email"] = $user_email;
-                        $_SESSION["user_name"] = $user_name;
-                        $_SESSION["user_surname"] = $user_surname;
-                        $_SESSION["user_username"] = $user_username;
-                        header("Location: index.php");
-                        }else{
-                            header(
-                                "Location: noToken.php"
-                            );
+                            if (isset($_POST["remember-me"])) {
+                                setcookie(
+                                    "USERINFO",
+                                    $userInfo,
+                                    time() + 60 * 60 * 24 * 30
+                                );
+                            }
+                            $_SESSION["user_id"] = $user_id;
+                            $_SESSION["user_email"] = $user_email;
+                            $_SESSION["user_name"] = $user_name;
+                            $_SESSION["user_surname"] = $user_surname;
+                            $_SESSION["user_username"] = $user_username;
+                            header("Location: index.php");
+                        } else {
+                            header("Location: noToken.php");
                         }
                     } else {
                         header(
@@ -75,9 +72,7 @@ if (isset($_POST["login"])) {
                                 $userType .
                                 " or password&username=$userInfo"
                         );
-                    
-                
-            }
+                    }
                 } else {
                     header(
                         "Location: login.php?error=Incorect " .
@@ -149,7 +144,6 @@ if (isset($_POST["register"])) {
                                 "Location:  register.php?error=Username already exists"
                             );
                         } else {
-                            
                             $token = generateRandomString(7);
                             $stmt = $conn->prepare(
                                 "INSERT INTO user (name,surname,email,username,password,token) VALUES (?,?,?,?,?,?)"
@@ -162,113 +156,148 @@ if (isset($_POST["register"])) {
                                 $hash,
                                 $token,
                             ]);
-                            $_SESSION["user_email"] = $email; 
-                            setcookie(
-                                "TOKEN",
-                                true,
-                                time() + 60 * 60 * 24 * 30
-                            );                        
-                            sendEmail($email,$token);
+                            $_SESSION["user_email"] = $email;
+                            sendEmail($email, $token);
                             header("Location: verifyEmail.php");
                         }
                     }
                 }
             }
-        }else{
-			header(
-				"Location:  register.php?error=You must agree to the terms and conditions"
-			);
-		}
+        } else {
+            header(
+                "Location:  register.php?error=You must agree to the terms and conditions"
+            );
+        }
     }
 }
 
 if (isset($_POST["verify"])) {
-    if (isset($_POST["token"])) {
-    $email = $_SESSION['user_email'];
-    $token = $_POST["token"];
-    $stmt = $conn->prepare(
-        "SELECT token FROM user WHERE email=?"
-    );
-    $stmt->execute([$email]);
-    $result = $stmt->fetch();
-    $db_token = $result["token"];
-    if($token == $db_token){
-        $stmt = $conn->prepare(
-            "UPDATE atw.user SET status = 1 WHERE email = ?"
-        );
-        $stmt->execute([$email]);
-        $stm = $conn->prepare(
-            "UPDATE atw.user SET token = NULL WHERE email = ?"
-        );
-        $stm->execute([$email]);
-        header("Location:  login.php");
-    }else if($token == "" || $token == " "){
-        header(
-            "Location:  verifyEmail.php?error=Please insert the code before submiting"
-            );
-    }else{
-        header(
-            "Location:  verifyEmail.php?error=The code doesn't match"
-            );
-    }
+    verify("token");
+} elseif (isset($_POST["changePassword"])) {
+    verify("code");
+    $_SESSION["user_changePassword"] = true;
 }
-}
-
 
 if (isset($_POST["noToken"])) {
     if (isset($_POST["email"])) {
         $email = $_POST["email"];
-        $stmt = $conn->prepare(
-            "SELECT * FROM user WHERE email=?"
-        );
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email=?");
         $stmt->execute([$email]);
-  
+
         if ($stmt->rowCount() >= 1) {
             $token = generateRandomString(7);
             $stm = $conn->prepare(
                 "UPDATE atw.user SET token = ? WHERE email = '$email'"
             );
             $stm->execute([$token]);
-            if ( false===$stmt ) {
-                echo'prepare() failed: ' . htmlspecialchars($conn->error);
+            if (false === $stmt) {
+                echo "prepare() failed: " . htmlspecialchars($conn->error);
             }
-            sendEmail($email,$token);
-            $_SESSION["user_email"] = $email; 
+            sendEmail($email, $token);
+            $_SESSION["user_email"] = $email;
             header("Location: verifyEmail.php");
-        }   
+        }
     }
 }
 
 if (isset($_POST["resend"])) {
-        $email = $_SESSION["user_email"];
-        $stmt = $conn->prepare(
-            "SELECT token FROM user WHERE email=?"
+    $email = $_SESSION["user_email"];
+    $stmt = $conn->prepare("SELECT token FROM user WHERE email=?");
+    $stmt->execute([$email]);
+    if ($stmt->rowCount() >= 1) {
+        $result = $stmt->fetch();
+        $token = $result["token"];
+        sendEmail($email, $token);
+        header(
+            "Location: verifyEmail.php?sucess=The code has been resent to your email"
         );
-        $stmt->execute([$email]);
-        if ($stmt->rowCount() >= 1) {
-            $result = $stmt->fetch();
-            $token = $result['token'];
-            sendEmail($email,$token);
-            header("Location: verifyEmail.php?sucess=The code has been resent to your email");
-        }   
+    }
 }
 
-function sendEmail($email,$token){
-    $_SESSION["user_token"] = $token;
-    ini_set("SMTP", "smtp.server.com");//confirm smtp
-    $to = $email;  
-    $subject = "Test mail";  
-    $message = "Hello! This is a simple email message.";  
-    $from = "pedrofiliperocha2001@gmail.com";  
-    $headers = "MIME-Version: 1.0" . "\r\n"; 
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
-    $text = Template::get_contents("template.html", array('token' => $token));
-    mail($to, $subject, $text, $headers); 
+if (isset($_POST["forgotPassword"])) {
+    if (isset($_POST["email"])) {
+        $email = $_POST["email"];
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email=?");
+        $stmt->execute([$email]);
+
+        if ($stmt->rowCount() >= 1) {
+            $code = generateRandomString(7);
+            $stm = $conn->prepare(
+                "UPDATE atw.user SET code = ? WHERE email = '$email'"
+            );
+            $stm->execute([$code]);
+            if (false === $stmt) {
+                echo "prepare() failed: " . htmlspecialchars($conn->error);
+            }
+            sendEmail($email, $code);
+            header("Location: changePassword.php");
+        }
+    }
 }
-function generateRandomString($length = 25) { // function to generate random string
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+if(isset($_POST['updatePassword'])){
+    $re_password = $_POST["re_pass"];
+    $password = $_POST["password"];
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    //ACABAR ESTE CODIGO
+}
+
+function verify($input)
+{
+    if (isset($_POST[$input])) {
+        include "db_conn.php";
+        $email = $_SESSION["user_email"];
+        $code = $_POST[$input];
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email=?");
+        $stmt->execute([$email]);
+        $result = $stmt->fetch();
+        $db_code = $result[$input];
+        if ($code == $db_code) {
+            if ($input == "token") {
+                $stmt = $conn->prepare(
+                    "UPDATE atw.user SET status = 1 WHERE email = ?"
+                );
+                $stmt->execute([$email]);
+            }
+            $stm = $conn->prepare(
+                "UPDATE atw.user SET $input = NULL WHERE email = ?"
+            );
+            $stm->execute([$email]);
+            if ($input == "token") {
+                header("Location:  login.php");
+            } else {
+                header("Location:  changePassword.php");
+            }
+        } elseif ($code == "" || $code == " ") {
+            header(
+                "Location:  verifyEmail.php?error=Please insert the code before submiting "
+            );
+        } else {
+            header("Location:  verifyEmail.php?error=The code doesn't match ");
+        }
+    }
+}
+
+function sendEmail($email, $token)
+{
+    $_SESSION["user_token"] = $token;
+    ini_set("SMTP", "smtp.server.com"); //confirm smtp
+    $to = $email;
+    $subject = "Test mail";
+    $message = "Hello! This is a simple email message.";
+    $from = "pedrofiliperocha2001@gmail.com";
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $text = Template::get_contents("template.html", ["token" => $token]);
+    mail($to, $subject, $text, $headers);
+}
+function generateRandomString($length = 25)
+{
+    // function to generate random string
+    $characters =
+        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $charactersLength = strlen($characters);
-    $randomString = '';
+    $randomString = "";
     for ($i = 0; $i < $length; $i++) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
