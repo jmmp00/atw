@@ -19,12 +19,12 @@
 			<div id="wrapper">
 
 				<!-- Header -->
-					<header id="header">
+				<header id="header">
+						
 						<div class="inner">
-
 							<!-- Logo -->
 								<a href="index.php" class="logo">
-								<span class="title">Scrabble</span><span class="fa fa-pencil"></span>
+								<center><span class="title">Scrabble</span><span class="fa fa-pencil"></span></center>
 								</a>
 							<!-- Nav -->
 								<nav>
@@ -32,11 +32,9 @@
 										<li><a href="#menu">Menu</a></li>
 									</ul>
 								</nav>
-							<!-- Logout button-->
-							<div style="min-height: 1vh;">
-        					<i class="fa fa-user" aria-hidden="true" style="float: right;"></i><h1 class="text-right display-6" style="margin-top: -40px; font-size: 1rem"><?=$_SESSION['user_name'] . " ".$_SESSION['user_surname']?>&nbsp;</h1>
-        					<a href="logout.php" class="button" style="position:absolute; right:100px; top:20px;font-size: 1rem">LOGOUT</a>
-							</div>
+
+							<!-- Account -->
+        					<a href="account.php"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
 					</header>
 					<hr>
 				<!-- Menu -->
@@ -57,7 +55,7 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-						<h3 style="margin: 0">All terms</h3>
+						<h3 class="h3">All terms</h3>
 
 							<div class="image main">
 								<img src="images/banner-image-3-1920x500.jpg" class="img-fluid" alt="" />
@@ -114,19 +112,19 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
-							<section>
-								<ul class="icons">
-									<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
-								</ul>
+						<section>
+								<h2>Contact Info</h2>
 
-								&nbsp;
+								<ul class="alt">
+									<li><span class="fa fa-envelope-o"></span> <a href="#">email@example.com</a></li>
+									<li><span class="fa fa-phone"></span> phone number </li>
+									<li><span class="fa fa-map-pin"></span> address </li>
+								</ul>
 							</section>
 
+
 							<ul class="copyright">
-								<li>Copyright © 2020 Company Name </li>
+								<li>Copyright © 2022 Company Name </li>
 								<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
 							</ul>
 						</div>

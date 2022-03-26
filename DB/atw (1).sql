@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17-Mar-2022 às 16:32
+-- Tempo de geração: 25-Mar-2022 às 16:09
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.12
 
@@ -30,10 +30,26 @@ SET time_zone = "+00:00";
 CREATE TABLE `terms` (
   `id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
-  `description` varchar(140) NOT NULL,
-  `timestamp` date NOT NULL,
+  `description` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `username` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `terms`
+--
+
+INSERT INTO `terms` (`id`, `title`, `description`, `timestamp`, `username`) VALUES
+(1, 'movie', 'a cinema film.', '2022-03-21 22:59:50', 'olá'),
+(2, 'joana', 'amazing person', '2022-03-21 23:04:38', 'juju'),
+(3, 'rocha', 'mamador', '2022-03-22 16:08:51', 'juju'),
+(4, 'telmo', 'tour eiffel', '2022-03-22 16:31:20', 'juju'),
+(5, 'sergio largo', 'largo', '2022-03-22 16:31:46', 'juju'),
+(6, 'pixa', 'pixa', '2022-03-22 16:31:54', 'juju'),
+(7, 'qweqwe', 'qweqweqeqeqw', '2022-03-22 16:32:12', 'juju'),
+(8, 'goskgsf', 'dfsdsdf', '2022-03-22 16:32:19', 'juju'),
+(9, 'rfd', 'dsfsfsdf', '2022-03-22 16:33:30', 'juju'),
+(10, 'tits', 'boobies', '2022-03-22 21:04:37', 'juju');
 
 -- --------------------------------------------------------
 
@@ -48,15 +64,19 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(300) NOT NULL,
-  `avatar` blob DEFAULT NULL
+  `avatar` blob NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `token` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `surname`, `email`, `username`, `password`, `avatar`) VALUES
-(4, 'Joana', 'Pinheiro', 'joana_mafalda_magalhaes@hotmail.com', 'juju', '$2y$10$o0j9SMKxgR57K9rznm79D.aXgJ3S7SaD5vIARVdC91M74g1XAUFFq', NULL);
+INSERT INTO `user` (`id`, `name`, `surname`, `email`, `username`, `password`, `avatar`, `code`, `token`, `status`) VALUES
+(3, 'Telmo', 'Santos', 'telmo_escapaes@hotmail.com', 'jokerino', '$2y$10$RmA/mMIG68YoqKFYfsE94OX0LUCeWgxobzMBE1nDk88ZsQniw0fly', '', '', '', 0),
+(6, 'Pedro', 'Rocha', 'pedrofiliperocha2001@gmail.com', 'rock', '$2y$10$x0vMafUEQykT16dXp8qA.uqaOqRtHehL6IfNTomnVJmFGUCC4.J7y', '', '', 'TESTE', 0);
 
 --
 -- Índices para tabelas despejadas
@@ -82,13 +102,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `terms`
 --
 ALTER TABLE `terms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
