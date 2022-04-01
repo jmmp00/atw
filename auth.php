@@ -1,15 +1,10 @@
 <?php
 session_start();
-<<<<<<< HEAD
 
 define('USER_LEVEL_ADMIN', '1');
 
 include "db_conn.php";  
 include_once 'template.php';
-=======
-include "db_conn.php";
-include_once "template.php";
->>>>>>> 19113964507a9ffb5b3b2ebce78ad014ca1b3894
 if (isset($_POST["login"])) {
     if (isset($_POST["password"]) && isset($_POST["userInfo"])) {
         function checkIfEmail($email)
@@ -219,7 +214,6 @@ if (isset($_POST["resend"])) {
     }
 }
 
-<<<<<<< HEAD
 function isAdmin() {
     if (isset($_SESSION['userInfo']) && $_SESSION['userInfo'] && USER_LEVEL_ADMIN == $_SESSION['userInfo']['user_level'] ) {
         return true;
@@ -228,16 +222,7 @@ function isAdmin() {
     }
 
 }
-function sendEmail($email,$token){
-    $_SESSION["user_token"] = $token;
-    ini_set("SMTP", "smtp.server.com");//confirm smtp
-    $to = $email;  
-    $subject = "Test mail";  
-    $headers = "MIME-Version: 1.0" . "\r\n"; 
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
-    $text = Template::get_contents("template.html", array('token' => $token));
-    mail($to, $subject, $text, $headers); 
-=======
+
 if (isset($_POST["forgotPassword"])) {
     if (isset($_POST["email"])) {
         $email = $_POST["email"];
@@ -253,12 +238,11 @@ if (isset($_POST["forgotPassword"])) {
             if (false === $stmt) {
                 echo "prepare() failed: " . htmlspecialchars($conn->error);
             }
+            $_SESSION["user_email"] = $email;
             sendEmail($email, $code);
-            $_SESSION['user_email'] = $email;
             header("Location: changePassword.php");
         }
     }
->>>>>>> 19113964507a9ffb5b3b2ebce78ad014ca1b3894
 }
 
 if(isset($_POST['updatePassword'])){
@@ -338,7 +322,3 @@ function generateRandomString($length = 25)
     }
     return $randomString;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 19113964507a9ffb5b3b2ebce78ad014ca1b3894

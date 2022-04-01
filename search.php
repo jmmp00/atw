@@ -75,7 +75,7 @@
 
 												if (isset($_POST['submit-search'])){
                                                     $search = mysqli_real_escape_string($conn, $_POST['search']);
-                                                    $sql = "SELECT * FROM terms WHERE title LIKE '%$search%'";
+                                                    $sql = "SELECT * FROM terms WHERE title LIKE '%$search%' OR  description LIKE '%$search%'";
                                                     $result = mysqli_query($conn, $sql);
                                                     $queryResult = mysqli_num_rows($result);
 

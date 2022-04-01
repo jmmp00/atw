@@ -233,7 +233,9 @@ $(document).ready(function(){
                     <td> <?php echo $row['email']; ?> </td>
                     <td> admin/user </td>
                     <td> <?php echo $row['status']; ?> </td>
+        
                     <td>
+                    <a href="edit.php?id=<?php echo $row['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons edit">&#xe3c9;</i></a>
                       <a href="delete.php?del=<?php echo $row['id']; ?>" class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                     </td>
                     	
