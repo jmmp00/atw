@@ -15,7 +15,7 @@
     <center>
         <h1>Add a new term to the website:</h1>
   
-        <form action="addt.php" method="post">
+        <form action="termAdded.php" method="post">
                           
 <p>
                 <label for="title">Title</label>

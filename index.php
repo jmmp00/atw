@@ -1,7 +1,8 @@
 <?php 
- session_start();
+include 'auth.php' ;
 
   if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) { 
+		
 ?>
 
 <html>
@@ -32,10 +33,18 @@
 									</ul>
 								</nav>
 
+							<!-- Admin -->
+								<?php if ( isAdmin() ) : 
+
+									echo "<a href='mgmt.php'>Admin pannel</a>";
+									
+								endif; ?>
+
 							<!--Logout button&username -->
 							
         					<a href="account.php"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
 
+						</div>
 
 					</header> 
 				<!-- Menu -->
@@ -44,8 +53,7 @@
 						<ul>
 						<li><a href="index.php" class="active">Home</a></li>
 						<li><a href="terms.php" >Terms</a></li>
-						<li><a href="addterm.php">Add term</a></li>
-						<li><a href="mgmt.php">Manage users</a></li>
+						<li><a href="addTerm.php">Add term</a></li>
 						<li><a href="contact.php">Contact Us</a></li>
 						
 						</ul>
@@ -91,52 +99,46 @@
 								<div class="row">
 									<div class="col-9">
 										<div class="row">
-											<div class="col-sm-6 text-center">
                                                 <?php
 												$conn = mysqli_connect("localhost", "root", "admin", "atw");
 												if ($conn-> connect_error){
    													die("Connection failed:". $conn-> connect_error);
 												}
 
-												$sql= "SELECT * FROM `terms` ORDER BY id DESC LIMIT 5;" ;
+												$sql= "SELECT * FROM `terms` ORDER BY id DESC LIMIT 4;" ;
 												$result= $conn-> query($sql);
 												while ($row= $result-> fetch_assoc()){
 													
 												$id=$row['id'];
-     												echo '<h2><a href="'. $id .'.php">', $row["title"], '</a></h2>';
+													echo '<div class="col-sm-6 text-center">';
+     												echo '<h2>', $row["title"], '</a></h2>';
      												echo $row["description"];
 													echo "<br>";
       												echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
+													echo "</div>";
 												}	
 												$conn-> close();										 
 												?>
-											</div>
+											
 
 											
 										</div>
                                         <p class="text-center">
-                                            <a href="terms.php">Read More &nbsp;<i class="fa fa-long-arrow-right"></i>
+                                            <a href="terms.php">Read More &nbsp;
+												<i class="fa fa-long-arrow-right"></i>
                                             </a>
                                         </p>
 									</div>
 
 
 									<div class="col-3">
-										<div class="form-group">
-                                        <h4>Search for a term</h4>
-				                        </div>
+										<!-- Search bar-->
+										<form action="search.php" method="POST">
+											<input type="text" name="search" placeholder="Search for a Term">
+											<button type="submit" name="submit-search" style="margin-left:190px; margin-top:-55px;"><i class="fa fa-search"></i></button>
+										</form>
+				                    </div>
 
-										<div class="form-group">
-				                            <div class="input-group">
-				                                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
-
-				                                <span class="input-group-addon"><a href="#"><i class="fa fa-search"></i></a></span>
-				                            </div>
-				                        </div>
-
-				                        <br>
-
-				                        </div>
 								</div>
 							</div>
 						</div>

@@ -195,7 +195,8 @@ $(document).ready(function(){
                         <h2>User <b>Management</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="adduser.php" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>						
+                        <a href="index.php" class="btn btn-secondary"><i class="material-icons">&#xe88a;</i> <span>Home</span></a>
+                        <a href="addUser.php" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>						
                     </div>
                 </div>
             </div>
@@ -230,11 +231,11 @@ $(document).ready(function(){
                     <td> <?php echo $row['name'] .' ' . $row['surname']; ?> </td>
                     <td> <?php echo $row['username']; ?> </td>
                     <td> <?php echo $row['email']; ?> </td>
-                    <td> <?php echo $row['accountType']; ?> </td>
-                    <td> active/inactive </td>
+                    <td> admin/user </td>
+                    <td> <?php echo $row['status']; ?> </td>
                     <td>
                       <a href="delete.php?del=<?php echo $row['id']; ?>" class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-                     </td>
+                    </td>
                     	
 
                     <?php
@@ -245,7 +246,14 @@ $(document).ready(function(){
                         
                     
                         </tr>
+                        
+
+                <tr>
+                    <b>Caption:</b><br>0-user/inactive; <br>1-admin/active.
+                </tr>
+
                 </tbody>
+                
             </table>
  
         </div>

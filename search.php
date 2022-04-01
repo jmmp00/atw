@@ -4,109 +4,118 @@
   if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) { 
 ?>
 
-<!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Term page</title>
+		<title>Search page</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
+
 	<body class="is-preload">
 		<!-- Wrapper -->
 			<div id="wrapper">
 
-				<!-- Header -->
-				<header id="header">
+					<header id="header">
 						
 						<div class="inner">
-							<!-- Logo -->
+							<!--Logo -->
 								<a href="index.php" class="logo">
 								<center><span class="title">Scrabble</span><span class="fa fa-pencil"></span></center>
 								</a>
-							<!-- Nav -->
+							<!--Nav-->
 								<nav>
 									<ul>
 										<li><a href="#menu">Menu</a></li>
 									</ul>
 								</nav>
-							<!-- Account -->
+
+							<!--Logout button&username -->
+							
         					<a href="account.php"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
-					</header>
-					<hr>
+							
+						</div>
+
+					</header> 
 				<!-- Menu -->
-				<nav id="menu">
+					<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
 						<li><a href="index.php">Home</a></li>
-
-						<li><a href="terms.php" class="active">Terms</a></li>
-
-						<li><a href="addTerm.php">Add term</a></li>
-
+						<li><a href="terms.php" >Terms</a></li>
+						<li><a href="addterm.php">Add term</a></li>
+						<li><a href="mgmt.php">Manage users</a></li>
 						<li><a href="contact.php">Contact Us</a></li>
-
+						
 						</ul>
 					</nav>
-
+                    
+                    <hr>
 				<!-- Main -->
 					<div id="main">
-						<div class="inner">
-						<h3 class="h3">All terms</h3>
 
-						<br>
+					
+						<div class="inner">
+                        <h3 class="h3">Search page</h3>
+							<br>
 							
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-9">
 										<div class="row">
-											
-												<?php
-												$conn = mysqli_connect("localhost", "root", "admin", "atw");
+											<div class="col-sm-6 text-center">
+                                                <?php
+                                                $conn = mysqli_connect("localhost", "root", "admin", "atw");
 												if ($conn-> connect_error){
    													die("Connection failed:". $conn-> connect_error);
 												}
 
-												$sql= "SELECT * FROM terms" ;
-												$result= $conn-> query($sql);
-												while ($row= $result-> fetch_assoc()){
-													
-												$id=$row['id'];
-													echo '<div class="col-sm-6 text-center">';
-     												echo '<h2>', $row["title"], '</a></h2>';
-     												echo $row["description"];
+
+												if (isset($_POST['submit-search'])){
+                                                    $search = mysqli_real_escape_string($conn, $_POST['search']);
+                                                    $sql = "SELECT * FROM terms WHERE title LIKE '%$search%'";
+                                                    $result = mysqli_query($conn, $sql);
+                                                    $queryResult = mysqli_num_rows($result);
+
+
+                                                    if($queryResult > 0){
+                                                        while($row = mysqli_fetch_assoc($result)){
+                                                            echo "<h2>", $row["title"], '</a></h2>';
+     												        echo $row["description"];
+													        echo "<br>";
+      												        echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
+													        echo "<br>";
+                                                        }
+                                                    }else {
+                                                        echo ":c";
+                                                    }
+
 													echo "<br>";
-      												echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
-													echo "<br>";
-													echo '</div>';
-												}	
-											
-												$conn-> close();										 
+													echo "<b>".$queryResult."</b> results were found.";
+                                                }									 
 												?>
-													
+											</div>
+
+											
 										</div>
+                                       
 									</div>
 
-										<!-- Search bar-->
-										<div class="form-group">
-				                            <div class="input-group">
-												<form action="search.php" method="POST">
-													<input type="text" name="search" placeholder="Search for a Term">
-													<button type="submit" name="submit-search" style="margin-left:190px"><i class="fa fa-search"></i></button>
-												</form>  
-				                            </div>
-				                        </div>
 
+									
+
+				                        </div>
 								</div>
 							</div>
 						</div>
 					</div>
 
 				<!-- Footer -->
-					<footer id="footer">
+                <footer id="footer">
 						<div class="inner">
+							
 							<section>
 								<h2>Contact Info</h2>
 
@@ -117,10 +126,9 @@
 								</ul>
 							</section>
 
-
 							<ul class="copyright">
-								<li>Copyright © 2022 Company Name </li>
-								<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
+							<li>Copyright © 2022 Company Name </li>
+							<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
 							</ul>
 						</div>
 					</footer>
@@ -137,11 +145,9 @@
 	</body>
 </html>
 
+
 <?php 
 }else {
    header("location: login.php");
 }
  ?>
-
-
-

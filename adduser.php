@@ -15,7 +15,7 @@
     <center>
         <h1>Add a new user to the website:</h1>
   
-        <form action="addu.php" method="post">
+        <form action="userAdded.php" method="post">
                           
             <p>
                 <label for="name">Name</label>

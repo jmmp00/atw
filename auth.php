@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+define('USER_LEVEL_ADMIN', '1');
+
 include "db_conn.php";  
 include_once 'template.php';
 if (isset($_POST["login"])) {
@@ -253,6 +256,14 @@ if (isset($_POST["resend"])) {
         }   
 }
 
+function isAdmin() {
+    if (isset($_SESSION['userInfo']) && $_SESSION['userInfo'] && USER_LEVEL_ADMIN == $_SESSION['userInfo']['user_level'] ) {
+        return true;
+    }else {
+        return false;
+    }
+
+}
 function sendEmail($email,$token){
     $_SESSION["user_token"] = $token;
     ini_set("SMTP", "smtp.server.com");//confirm smtp
@@ -272,3 +283,4 @@ function generateRandomString($length = 25) { // function to generate random str
     }
     return $randomString;
 }
+

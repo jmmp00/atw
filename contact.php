@@ -48,7 +48,7 @@
 
 						<li><a href="terms.php" >Terms</a></li>
 
-						<li><a href="addterm.php">Add term</a></li>
+						<li><a href="addTerm.php">Add term</a></li>
 
 						<li><a href="contact.php" class="active">Contact Us</a></li>
 						

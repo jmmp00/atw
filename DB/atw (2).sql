@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Mar-2022 às 16:09
+-- Tempo de geração: 29-Mar-2022 às 02:07
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.12
 
@@ -42,14 +42,13 @@ CREATE TABLE `terms` (
 INSERT INTO `terms` (`id`, `title`, `description`, `timestamp`, `username`) VALUES
 (1, 'movie', 'a cinema film.', '2022-03-21 22:59:50', 'olá'),
 (2, 'joana', 'amazing person', '2022-03-21 23:04:38', 'juju'),
-(3, 'rocha', 'mamador', '2022-03-22 16:08:51', 'juju'),
+(3, 'rocha', 'rock', '2022-03-25 16:27:05', 'juju'),
 (4, 'telmo', 'tour eiffel', '2022-03-22 16:31:20', 'juju'),
-(5, 'sergio largo', 'largo', '2022-03-22 16:31:46', 'juju'),
-(6, 'pixa', 'pixa', '2022-03-22 16:31:54', 'juju'),
 (7, 'qweqwe', 'qweqweqeqeqw', '2022-03-22 16:32:12', 'juju'),
 (8, 'goskgsf', 'dfsdsdf', '2022-03-22 16:32:19', 'juju'),
 (9, 'rfd', 'dsfsfsdf', '2022-03-22 16:33:30', 'juju'),
-(10, 'tits', 'boobies', '2022-03-22 21:04:37', 'juju');
+(11, 'weqeee', 'ffsdffdf', '2022-03-27 16:24:19', 'juju'),
+(12, 'âmbar', 'orange cat', '2022-03-27 20:19:56', 'juju');
 
 -- --------------------------------------------------------
 
@@ -64,6 +63,7 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(300) NOT NULL,
+  `user_level` int(11) DEFAULT 0,
   `avatar` blob NOT NULL,
   `code` varchar(50) NOT NULL,
   `token` varchar(50) NOT NULL,
@@ -74,9 +74,9 @@ CREATE TABLE `user` (
 -- Extraindo dados da tabela `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `surname`, `email`, `username`, `password`, `avatar`, `code`, `token`, `status`) VALUES
-(3, 'Telmo', 'Santos', 'telmo_escapaes@hotmail.com', 'jokerino', '$2y$10$RmA/mMIG68YoqKFYfsE94OX0LUCeWgxobzMBE1nDk88ZsQniw0fly', '', '', '', 0),
-(6, 'Pedro', 'Rocha', 'pedrofiliperocha2001@gmail.com', 'rock', '$2y$10$x0vMafUEQykT16dXp8qA.uqaOqRtHehL6IfNTomnVJmFGUCC4.J7y', '', '', 'TESTE', 0);
+INSERT INTO `user` (`id`, `name`, `surname`, `email`, `username`, `password`, `user_level`, `avatar`, `code`, `token`, `status`) VALUES
+(6, 'Pedro', 'Rocha', 'pedrofiliperocha2001@gmail.com', 'rock', '$2y$10$x0vMafUEQykT16dXp8qA.uqaOqRtHehL6IfNTomnVJmFGUCC4.J7y', 0, '', '', 'TESTE', 1),
+(7, 'Joana', 'Pinheiro', 'joana_mafalda_magalhaes@hotmail.com', 'juju', '$2y$10$6lM984aoQf2nlWZE.Beng.BZy3j4US7J2h5IgU1NLDZive2o8HOAO', 1, '', '', '9xsnqDN', 1);
 
 --
 -- Índices para tabelas despejadas
@@ -102,13 +102,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `terms`
 --
 ALTER TABLE `terms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
