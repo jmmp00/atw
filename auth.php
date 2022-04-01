@@ -46,10 +46,7 @@ if (isset($_POST["login"])) {
                 echo $user_email;
                 if ($userInfo == $user_email || $userInfo == $user_username) {
                     if (password_verify($password, $user_password)) {
-                        echo $user_status;
                         if ($user_status == 1) {
-                            echo $user_status;
-
                             if (isset($_POST["remember-me"])) {
                                 setcookie(
                                     "USERINFO",
@@ -230,16 +227,26 @@ if (isset($_POST["forgotPassword"])) {
                 echo "prepare() failed: " . htmlspecialchars($conn->error);
             }
             sendEmail($email, $code);
+            $_SESSION['user_email'] = $email;
             header("Location: changePassword.php");
         }
     }
 }
 
 if(isset($_POST['updatePassword'])){
-    $re_password = $_POST["re_pass"];
-    $password = $_POST["password"];
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-    //ACABAR ESTE CODIGO
+    if(empty($password) || empty($re_password)){
+        $password = $_POST["password"];
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $email = $_SESSION["user_email"];
+        $stmt = $conn->prepare(
+            "UPDATE atw.user SET password = ? WHERE email = ?"
+        );
+        $stmt->execute([$hash,$email]);
+        header("Location: login.php");
+    }
+    
+    
+
 }
 
 function verify($input)

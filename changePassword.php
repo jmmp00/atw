@@ -59,7 +59,7 @@
           <div class="signin-content">
             <div class="verify-email-form">
               <h2 class="form-title"><center>Choose a new password!</center></h2>
-              <form method="POST" class="register-form" id="login-form" action="auth.php"> 
+              <form method="POST" class="register-form" id="login-form" action="auth.php"> <?php if (isset($_GET['error'])) { ?> <div class="alert alert-danger" role="alert"> <?=htmlspecialchars($_GET['error'])?> </div> <?php } ?> <div class="form-group">
               <center><div class="alert alert-success" role="alert" style="text-align:center">Choose a new password</div>  <center>
               <div class="form-group">
                   <label for="pass">
@@ -93,6 +93,6 @@
       <?php
     }
 }else {
-   header("Location: login.php");
+   
 }
  ?>
