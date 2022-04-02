@@ -5,6 +5,7 @@ define('USER_LEVEL_ADMIN', '1');
 
 include "db_conn.php";  
 include_once 'template.php';
+
 if (isset($_POST["login"])) {
     if (isset($_POST["password"]) && isset($_POST["userInfo"])) {
         function checkIfEmail($email)
@@ -223,6 +224,7 @@ function isAdmin() {
 
 }
 
+
 if (isset($_POST["forgotPassword"])) {
     if (isset($_POST["email"])) {
         $email = $_POST["email"];
@@ -244,6 +246,7 @@ if (isset($_POST["forgotPassword"])) {
         }
     }
 }
+
 
 if(isset($_POST['updatePassword'])){
     if(empty($password) || empty($re_password)){

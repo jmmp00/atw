@@ -93,7 +93,7 @@
                                                     }
 
 													echo "<br>";
-													echo "<b>".$queryResult."</b> results were found.";
+													echo "<b>".$queryResult."</b> result(s) found.";
                                                 }									 
 												?>
 											</div>

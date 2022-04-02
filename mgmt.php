@@ -231,26 +231,50 @@ $(document).ready(function(){
                     <td> <?php echo $row['name'] .' ' . $row['surname']; ?> </td>
                     <td> <?php echo $row['username']; ?> </td>
                     <td> <?php echo $row['email']; ?> </td>
-                    <td> admin/user </td>
+                    <td> <?php echo $row['user_level']; ?> </td>
                     <td> <?php echo $row['status']; ?> </td>
         
                     <td>
+                    <!-- Edit button -->
                     <a href="edit.php?id=<?php echo $row['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons edit">&#xe3c9;</i></a>
-                      <a href="delete.php?del=<?php echo $row['id']; ?>" class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-                    </td>
-                    	
-
-                    <?php
-                    }
-                    $conn-> close();										 
-                    ?>
-   
-                        
                     
-                        </tr>
-                        
+                    <!-- Edit button -->
+                    <span data-toggle="modal" data-target="#modalApagar<?PHP echo $row ["id"]?>">
+                        <a class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                    </span>
+                </td>
 
-                <tr>
+<!-- Modal -->
+
+<div id="modalApagar<?PHP echo $row ["id"]?>" class="modal fade" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><strong>Delete</strong></h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to permenantly delete <strong><?PHP echo $row ["name"] . " ". $row ["surname"]?></strong>'s account? </p>
+      </div>
+      <div class="modal-footer">
+<div class="btn-group">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <a type="button" class="btn btn-danger" href="delete.php?codigo=<?PHP echo $row ["id"]?>">Yes</a>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</tr>
+                            <?php
+                                 }
+                                $conn-> close();										 
+                            ?>
+                    <tr>
                     <b>Caption:</b><br>0-user/inactive; <br>1-admin/active.
                 </tr>
 

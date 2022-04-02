@@ -34,11 +34,11 @@ include 'auth.php' ;
 								</nav>
 
 							<!-- Admin -->
-								<?php if ( isAdmin() ) : 
+								<//?php if ( isAdmin() ) : 
 
 									echo "<a href='mgmt.php'>Admin pannel</a>";
 									
-								endif; ?>
+								//endif; ?>
 
 							<!--Logout button&username -->
 							
@@ -61,35 +61,6 @@ include 'auth.php' ;
 
 				<!-- Main -->
 					<div id="main">
-
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-						  <ol class="carousel-indicators">
-						    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						  </ol>
-						  <div class="carousel-inner">
-						    <div class="carousel-item active">
-						      <img class="d-block w-100" src="images/slider-image-1.jpg" alt="First slide">
-						    </div>
-						    <div class="carousel-item">
-						      <img class="d-block w-100" src="images/slider-image-2.jpg" alt="Second slide">
-						    </div>
-						    <div class="carousel-item">
-						      <img class="d-block w-100" src="images/slider-image-3.jpg" alt="Third slide">
-						    </div>
-						  </div>
-						  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Previous</span>
-						  </a>
-						  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Next</span>
-						  </a>
-					</div>
-
-						<br>
 						<br>
 						<div class="inner">
                         <h3 class="h3">Latest terms posted&nbsp;<i class="fa fa-level-down"></i></h3>
