@@ -33,15 +33,6 @@ include 'auth.php' ;
 									</ul>
 								</nav>
 
-							<!-- Admin -->
-								<//?php if ( isAdmin() ) : 
-
-									echo "<a href='mgmt.php'>Admin pannel</a>";
-									
-								//endif; ?>
-
-							<!--Logout button&username -->
-							
         					<a href="account.php"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
 
 						</div>
@@ -54,8 +45,6 @@ include 'auth.php' ;
 						<li><a href="index.php" class="active">Home</a></li>
 						<li><a href="terms.php" >Terms</a></li>
 						<li><a href="addTerm.php">Add term</a></li>
-						<li><a href="contact.php">Contact Us</a></li>
-						
 						</ul>
 					</nav>
 

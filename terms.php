@@ -1,10 +1,10 @@
 <?php 
- session_start();
+include 'auth.php' ;
 
   if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) { 
+		
 ?>
 
-<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Term page</title>
@@ -14,56 +14,52 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
+
 	<body class="is-preload">
 		<!-- Wrapper -->
 			<div id="wrapper">
 
-				<!-- Header -->
-				<header id="header">
+					<header id="header">
 						
 						<div class="inner">
-							<!-- Logo -->
+							<!--Logo -->
 								<a href="index.php" class="logo">
 								<center><span class="title">Scrabble</span><span class="fa fa-pencil"></span></center>
 								</a>
-							<!-- Nav -->
+							<!--Nav-->
 								<nav>
 									<ul>
 										<li><a href="#menu">Menu</a></li>
 									</ul>
 								</nav>
-							<!-- Account -->
+
         					<a href="account.php"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
-					</header>
-					<hr>
+
+						</div>
+
+					</header> 
 				<!-- Menu -->
-				<nav id="menu">
+					<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
 						<li><a href="index.php">Home</a></li>
-
 						<li><a href="terms.php" class="active">Terms</a></li>
-
 						<li><a href="addTerm.php">Add term</a></li>
-
-						<li><a href="contact.php">Contact Us</a></li>
-
 						</ul>
 					</nav>
 
 				<!-- Main -->
 					<div id="main">
-						<div class="inner">
-						<h3 class="h3">All terms</h3>
-
 						<br>
+						<div class="inner">
+                        <h3 class="h3">All terms</i></h3>
+							<br>
 							
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-9">
 										<div class="row">
-											
-												<?php
+                                                <?php
 												$conn = mysqli_connect("localhost", "root", "admin", "atw");
 												if ($conn-> connect_error){
    													die("Connection failed:". $conn-> connect_error);
@@ -81,23 +77,24 @@
       												echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
 													echo "<br>";
 													echo '</div>';
-												}	
-											
+												}		
 												$conn-> close();										 
 												?>
-													
+											
+
+											
 										</div>
+                                        
 									</div>
 
+
+									<div class="col-3">
 										<!-- Search bar-->
-										<div class="form-group">
-				                            <div class="input-group">
-												<form action="search.php" method="POST">
-													<input type="text" name="search" placeholder="Search for a Term">
-													<button type="submit" name="submit-search" style="margin-left:190px"><i class="fa fa-search"></i></button>
-												</form>  
-				                            </div>
-				                        </div>
+										<form action="search.php" method="POST">
+											<input type="text" name="search" placeholder="Search for a Term">
+											<button type="submit" name="submit-search" style="margin-left:190px; margin-top:-55px;"><i class="fa fa-search"></i></button>
+										</form>
+				                    </div>
 
 								</div>
 							</div>
@@ -105,8 +102,9 @@
 					</div>
 
 				<!-- Footer -->
-					<footer id="footer">
+                <footer id="footer">
 						<div class="inner">
+							
 							<section>
 								<h2>Contact Info</h2>
 
@@ -117,10 +115,9 @@
 								</ul>
 							</section>
 
-
 							<ul class="copyright">
-								<li>Copyright © 2022 Company Name </li>
-								<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
+							<li>Copyright © 2022 Company Name </li>
+							<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
 							</ul>
 						</div>
 					</footer>
@@ -137,11 +134,9 @@
 	</body>
 </html>
 
+
 <?php 
 }else {
    header("location: login.php");
 }
  ?>
-
-
-

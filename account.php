@@ -5,6 +5,7 @@
 ?>
 
 <html>
+
 	<head>
 		<title>My Account</title>
 		<meta charset="utf-8" />
@@ -14,10 +15,20 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 <body>
+<!-- Admin -->
+								<?php if ( isAdmin() ) : 
+
+									echo "<a href='mgmt.php'>Admin pannel</a>";
+									
+								endif; ?>
+
+<!--Logout button&username -->
 <a href="index.php" class="button" style="position:absolute; right: 172px; top: 10px;font-size: 1rem">HOME</a>
 <a href="logout.php" class="button" style="position:absolute; right: 10px; top: 10px;font-size: 1rem">LOGOUT</a>
 <a href="" class="button" style="position:absolute; right: 10px; top: 80px; font-size: 1rem">CHANGE PASSWORD</a>
+
 </body>
+
 </html>
 
 <?php 
