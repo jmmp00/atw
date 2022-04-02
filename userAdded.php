@@ -24,15 +24,16 @@
         }
           
         // Taking all 5 values from the form data(input)
-        $name =  $_REQUEST['name'];
-        $surname = $_REQUEST['surname'];
+        $name=$_REQUEST['name'];
+        $surname=$_REQUEST['surname'];
         $username=$_REQUEST['username'];
         $email=$_REQUEST['email'];
         $password=$_REQUEST['password'];
         $accountType=$_REQUEST['accountType'];
+        $avatar=$_REQUEST['img'];
           
         // Performing insert query execution
-        $sql = "INSERT INTO user  VALUES (NULL, '$name', '$surname', '$email', '$username', '$password', NULL, '$accountType')";
+        $sql = "INSERT INTO user  VALUES (NULL, '$name', '$surname', '$email', '$username', '$password', '$accountType', '$avatar', 0, 'AddedByAdmin', 1)";
           
         if(mysqli_query($conn, $sql)){
             echo "<h3>Submited with success!</h3>"; 

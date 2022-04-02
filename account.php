@@ -16,11 +16,7 @@
 	</head>
 <body>
 <!-- Admin -->
-								<?php if ( isAdmin() ) : 
-
-									echo "<a href='mgmt.php'>Admin pannel</a>";
-									
-								endif; ?>
+<a href='mgmt.php' class='button'>Admin pannel</a>
 
 <!--Logout button&username -->
 <a href="index.php" class="button" style="position:absolute; right: 172px; top: 10px;font-size: 1rem">HOME</a>

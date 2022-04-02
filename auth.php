@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-define('USER_LEVEL_ADMIN', '1');
-
 include "db_conn.php";  
 include_once 'template.php';
 
@@ -213,15 +211,6 @@ if (isset($_POST["resend"])) {
             "Location: verifyEmail.php?sucess=The code has been resent to your email"
         );
     }
-}
-
-function isAdmin() {
-    if (isset($_SESSION['userInfo']) && $_SESSION['userInfo'] && USER_LEVEL_ADMIN == $_SESSION['userInfo']['user_level'] ) {
-        return true;
-    }else {
-        return false;
-    }
-
 }
 
 

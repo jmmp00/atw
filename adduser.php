@@ -47,10 +47,15 @@
                 <input type="text" name="accountType" id="accountType">
             </p>
 
-
-            <input type="submit" value="Submit">
+            <p><form action="/action_page.php">
+                <label for="img">Avatar:</label>
+                <input type="file" id="img" name="img" accept="image/*">
+                <br>
+                <br>
+                <input type="submit" value="Submit">
+                </form>
+            </p>           
         </form>
-        <br>
         <a href="javascript:history.back()">
             <button>Go Back</button>
         </a>  
