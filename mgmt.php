@@ -238,7 +238,7 @@ $(document).ready(function(){
                     <!-- Edit button -->
                     <a href="edit.php?id=<?php echo $row['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons edit">&#xe3c9;</i></a>
                     
-                    <!-- Edit button -->
+                    <!-- Delete button -->
                     <span data-toggle="modal" data-target="#modalApagar<?PHP echo $row ["id"]?>">
                         <a class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                     </span>
@@ -260,7 +260,7 @@ $(document).ready(function(){
       <div class="modal-footer">
 <div class="btn-group">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <a type="button" class="btn btn-danger" href="delete.php?codigo=<?PHP echo $row ["id"]?>">Yes</a>
+          <a type="button" class="btn btn-danger" href="delete.php?id=<?PHP echo $row ["id"]?>">Yes</a>
 </div>
       </div>
     </div>
