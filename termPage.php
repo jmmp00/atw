@@ -1,18 +1,19 @@
 <?php 
- session_start();
+include 'auth.php' ;
 
   if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) { 
+		
 ?>
 
 <html>
 	<head>
-		<title>Search page</title>
+		<title>Term page</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 	<body class="is-preload">
 		<!-- Wrapper -->
@@ -32,10 +33,8 @@
 									</ul>
 								</nav>
 
-							<!--Logout button&username -->
-							
         					<a href="account.php"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
-							
+
 						</div>
 
 					</header> 
@@ -44,72 +43,68 @@
 						<h2>Menu</h2>
 						<ul>
 						<li><a href="index.php">Home</a></li>
-						<li><a href="terms.php" >Terms</a></li>
-						<li><a href="addterm.php">Add term</a></li>
-						<li><a href="mgmt.php">Manage users</a></li>
-						<li><a href="contact.php">Contact Us</a></li>
-						
+						<li><a href="terms.php" class="active">Terms</a></li>
+						<li><a href="addTerm.php">Add term</a></li>
 						</ul>
 					</nav>
- 
+
 				<!-- Main -->
 					<div id="main">
-
-					
+						<br>
 						<div class="inner">
-                        <h3 class="h3">Search page</h3>
+                        <h3 class="h3">Term Page</i></h3>
 							<br>
 							
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-9">
 										<div class="row">
-											<div class="col-sm-6 text-center">
                                                 <?php
-                                                $conn = mysqli_connect("localhost", "root", "admin", "atw");
+												$conn = mysqli_connect("localhost", "root", "admin", "atw");
 												if ($conn-> connect_error){
    													die("Connection failed:". $conn-> connect_error);
 												}
-
-
-												if (isset($_POST['submit-search'])){
-                                                    $search = mysqli_real_escape_string($conn, $_POST['search']);
-                                                    $sql = "SELECT * FROM terms WHERE title LIKE '%$search%' OR  description LIKE '%$search%'";
-                                                    $result = mysqli_query($conn, $sql);
-                                                    $queryResult = mysqli_num_rows($result);
-
-
-                                                    if($queryResult > 0){
-                                                        while($row = mysqli_fetch_assoc($result)){
-                                                            echo "<h2><a href='termPage.php?id=".$row["id"]."'>", $row["title"], '</a>';
-															if ( $row['verification'] == "1" ) { ?> 
-															   <span class="fa fa-check"></span> 
-															  <?php }	
-															echo '</h2>';
-     												        echo $row["description"];
-													        echo "<br>";
-      												        echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
-													        echo "<br>";
-                                                        }
-                                                    }else {
-                                                        echo ":c";
-                                                    }
-
+												$id=mysqli_real_escape_string($conn, $_GET['id']);
+												$sql= "SELECT * FROM terms WHERE id='$id'";
+												$result= $conn-> query($sql);
+												while ($row= $result-> fetch_assoc()){
+													
+												$id=$row['id'];
+													echo '<div class="col-sm-6 text-center">';
+													echo '<h2>', $row["title"];
+													if ( $row['verification'] == "1" ) { ?> 
+													   <span class="fa fa-check"></span> 
+													  <?php }	
+													echo '</h2>';
+     												echo $row["description"];
 													echo "<br>";
-													echo "<b>".$queryResult."</b> result(s) found.";
-                                                }									 
+      												echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";
+													echo "<br>";
+													echo '</div>';
+												}		
+												$conn-> close();										 
 												?>
-											</div>
+                    <!-- Edit button -->
+                    <a href="edit.php?id=<?php echo $row['id']; ?>"><i class="material-icons edit">&#xe3c9;</i></a>
+                    
+                    <!-- Delete button -->
+                    <a href="deleteT.php"><i class="material-icons">&#xE5C9;</i></a>
+                
 
 											
 										</div>
-                                       
+                                        
 									</div>
 
 
-									
+									<div class="col-3">
+										<!-- Search bar-->
+										<form action="search.php" method="POST">
+											<input type="text" name="search" placeholder="Search for a Term">
+											<button type="submit" name="submit-search" style="margin-left:190px; margin-top:-55px;"><i class="fa fa-search"></i></button>
+										</form>
+				                    </div>
 
-				                        </div>
 								</div>
 							</div>
 						</div>

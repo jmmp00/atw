@@ -71,7 +71,11 @@ include 'auth.php' ;
 													
 												$id=$row['id'];
 													echo '<div class="col-sm-6 text-center">';
-     												echo '<h2>', $row["title"], '</a></h2>';
+													echo "<h2><a href='termPage.php?id=".$row["id"]."'>", $row["title"], '</a>';
+													if ( $row['verification'] == "1" ) { ?> 
+													   <span class="fa fa-check"></span> 
+													  <?php }	
+													echo '</h2>';
      												echo $row["description"];
 													echo "<br>";
       												echo "<p>", $row["username"], "&nbsp;|&nbsp;", $row["timestamp"], "</p>";

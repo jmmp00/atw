@@ -29,7 +29,7 @@
         $user=$_SESSION['user_username'];
           
         // Performing insert query execution
-        $sql = "INSERT INTO terms  VALUES (NULL, '$title', '$description', current_timestamp(), '$user')";
+        $sql = "INSERT INTO terms  VALUES (NULL, '$title', '$description', current_timestamp(), '$user', NULL)";
           
         if(mysqli_query($conn, $sql)){
             echo "<h3>Submited with success!</h3>"; 
