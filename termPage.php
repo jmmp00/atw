@@ -88,7 +88,37 @@ include 'auth.php' ;
                     <a href="edit.php?id=<?php echo $row['id']; ?>"><i class="material-icons edit">&#xe3c9;</i></a>
                     
                     <!-- Delete button -->
-                    <a href="deleteT.php"><i class="material-icons">&#xE5C9;</i></a>
+                    <span data-toggle="modal" data-target="#modalApagar<?PHP echo $_GET["id"]?>">
+                        <i class="material-icons">&#xE5C9;</i>
+                    </span>
+                </td>
+
+<!-- Modal -->
+
+<div id="modalApagar<?PHP echo $_GET["id"]?>" class="modal fade" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><strong>Delete</strong></h4>
+      </div>
+      <div class="modal-body">
+        
+	  <p>Are you sure you want to <b>permenantly delete</b> this term?</p>
+      
+      </div>
+      <div class="modal-footer">
+<div class="btn-group">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <a type="button" class="btn btn-danger" href="deleteT.php?id=<?PHP echo $_GET["id"]?>">Yes</a>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
                 
 
 											

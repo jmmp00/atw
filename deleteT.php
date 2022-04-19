@@ -5,7 +5,7 @@
 	$db = mysqli_connect('localhost', 'root', 'admin', 'atw');
 
 	// initialize variables
-    $id=$_GET['id'];
+    $id=$_REQUEST['id'];
     $query="DELETE FROM terms WHERE id='$id'";
     mysqli_query($db, $query);
     mysqli_close ($db);
