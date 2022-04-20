@@ -61,10 +61,11 @@ if (isset($_GET['id'])){
                     Status: <br>
                     <input type="number" name="status" value="<?php echo $status; ?>">
                     <br><br>
-                    <input type="submit" value="Update" name="update">                
-                </fieldset>
+                    <input type="submit" value="Update" name="update">            
+                </fieldset> 
             </form>
-
+            <a href="index.php"><button>Home page</button></a>
+            <a href="mgmt.php"><button>Manage Users page</button></a>   
         </body>
         </html>
 <?php
