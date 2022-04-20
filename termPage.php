@@ -85,7 +85,7 @@ include 'auth.php' ;
 												$conn-> close();										 
 												?>
                     <!-- Edit button -->
-                    <a href="edit.php?id=<?php echo $row['id']; ?>"><i class="material-icons edit">&#xe3c9;</i></a>
+                    <a href="editT.php?id=<?php echo $id; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons edit">&#xe3c9;</i></a>
                     
                     <!-- Delete button -->
                     <span data-toggle="modal" data-target="#modalApagar<?PHP echo $_GET["id"]?>">
