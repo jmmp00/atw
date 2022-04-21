@@ -8,8 +8,9 @@ if (isset($_POST['update'])) {
     $id=$_POST['id'];
     $title=$_POST['title'];
     $description=$_POST['description'];
+    $verification=$_POST['verification'];
     
-    $sql="UPDATE terms SET title='$title', description='$description' WHERE id='$id'";
+    $sql="UPDATE terms SET title='$title', description='$description', verification='$verification' WHERE id='$id'";
 
     $result=$db->query($sql);
 
@@ -32,6 +33,7 @@ if (isset($_GET['id'])){
                 $title=$row['title'];
                 $id=$row['id'];
                 $description=$row['description'];
+                $verification=$row['verification'];
             }
 
             ?>
@@ -46,7 +48,9 @@ if (isset($_GET['id'])){
                     Description: <br>
                     <input type="text" name="description" value="<?php echo $description; ?>">
                     <br>
-                    <br>
+                    Verification: <br>
+                    <input type="text" name="verification" value="<?php echo $verification; ?>">
+                    <br><br>
                     <input type="submit" value="Update" name="update">            
                 </fieldset> 
             </form>
