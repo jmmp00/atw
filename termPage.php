@@ -84,18 +84,18 @@ include 'auth.php' ;
 												}		
 												$conn-> close();										 
 												?>
-                    <!-- Edit button -->
-                    <a href="editT.php?id=<?php echo $id; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons edit">&#xe3c9;</i></a>
-                    
-                    <!-- Delete button -->
-                    <span data-toggle="modal" data-target="#modalApagar<?PHP echo $_GET["id"]?>">
-                        <i class="material-icons">&#xE5C9;</i>
-                    </span>
-                </td>
+
+<?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
+echo("<a href='editT.php?id=" . $id . "class='edit' title='Edit' data-toggle='tooltip'><i class='material-icons edit'>&#xe3c9;</i></a>");
+echo "<span data-toggle='modal' data-target='#modalApagar" . $_GET['id'] . "'>" . "<i class='material-icons'>&#xE5C9;</i>" . "</span>";
+
+}?>
+
+</td>
 
 <!-- Modal -->
 
-<div id="modalApagar<?PHP echo $_GET["id"]?>" class="modal fade" role="dialog" tabindex="-1">
+<div id="modalApagar<?PHP echo $_GET['id']?>" class="modal fade" role="dialog" tabindex="-1">
   <div class="modal-dialog">
 
     <!-- Modal content-->
