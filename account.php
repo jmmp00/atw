@@ -16,7 +16,9 @@
 	</head>
 <body>
 <!-- Admin -->
-<a href='mgmt.php' class='button'>Admin pannel</a>
+<?php if ($_SESSION["user_level"] == 1){
+echo("<a href='mgmt.php' class='button'>Admin pannel</a>");
+}?>
 
 <!--Logout button&username -->
 <a href="index.php" class="button" style="position:absolute; right: 172px; top: 10px;font-size: 1rem">HOME</a>

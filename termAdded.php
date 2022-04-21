@@ -14,8 +14,8 @@
 <body>
     <center>
         <?php
-  
-        $conn = mysqli_connect("localhost", "root", "admin", "atw");
+        include "db_conn.php"; 
+        //$conn = mysqli_connect("localhost", "root", "admin", "atw");
           
         // Check connection
         if($conn === false){
@@ -24,12 +24,19 @@
         }
           
         // Taking all 5 values from the form data(input)
-        $title =  $_REQUEST['title'];
+        $title =  $_POST['title'];
         $description = $_REQUEST['description'];
         $user=$_SESSION['user_username'];
-          
-        // Performing insert query execution
-        $sql = "INSERT INTO terms  VALUES (NULL, '$title', '$description', current_timestamp(), '$user', NULL)";
+        
+        $verify = $conn->prepare(
+            "SELECT * FROM terms WHERE title like ?"
+        );
+        $verify->execute([$title]);
+
+        if ($verify->rowCount() >= 1) {
+            echo "ERROR - term already exists";
+        }else{
+            $sql = "INSERT INTO terms  VALUES (NULL, '$title', '$description', current_timestamp(), '$user', NULL)";
           
         if(mysqli_query($conn, $sql)){
             echo "<h3>Submited with success!</h3>"; 
@@ -37,8 +44,9 @@
             echo "ERROR: $sql. " 
                 . mysqli_error($conn);
         }
-        // Close connection
-        mysqli_close($conn);
+        }
+        
+    
         ?>
 
 

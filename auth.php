@@ -43,6 +43,7 @@ if (isset($_POST["login"])) {
                 $user_name = $user["name"];
                 $user_surname = $user["surname"];
                 $user_status = $user["status"];
+                $user_level = $user["user_level"];
                 echo $user_status;
                 echo $userInfo;
                 echo $user_email;
@@ -61,6 +62,7 @@ if (isset($_POST["login"])) {
                             $_SESSION["user_name"] = $user_name;
                             $_SESSION["user_surname"] = $user_surname;
                             $_SESSION["user_username"] = $user_username;
+                            $_SESSION["user_level"] = $user_level;
                             header("Location: index.php");
                         } else {
                             header("Location: noToken.php");
