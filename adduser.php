@@ -1,7 +1,7 @@
 <?php 
  session_start();
 
-  if (isset($_SESSION['user_email']) && isset($_SESSION['user_username']) && isset($_SESSION['user_username']) && $_SESSION['user_username'] == 1) { 
+  if (isset($_SESSION['user_email']) && isset($_SESSION['user_username']) && isset($_SESSION['user_level']) && $_SESSION['user_ulevel'] == 1) { 
 ?>
 
 <!DOCTYPE html>
