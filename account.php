@@ -24,8 +24,8 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) {
 <body>
 <div><center>
 <!-- Admin -->
-<?php if ($_SESSION["user_level"] == 1){
-echo("<a href='mgmt.php' class='button'>Admin pannel</a>");
+<?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
+echo("<a href='mgmt.php' class='button' style='position:absolute; right: 455px; top: 110px;'>Admin pannel</a>");
 }?>
 
 <!--Logout button&username -->
