@@ -44,12 +44,12 @@ if (isset($_POST["login"])) {
                 $user_surname = $user["surname"];
                 $user_status = $user["status"];
                 $user_level = $user["user_level"];
-                echo $user_status;
-                echo $userInfo;
-                echo $user_email;
+                $user_enabled = $user["enabled"];
                 if ($userInfo == $user_email || $userInfo == $user_username) {
                     if (password_verify($password, $user_password)) {
                         if ($user_status == 1) {
+                            if($user_enabled == 1){
+
                             if (isset($_POST["remember-me"])) {
                                 setcookie(
                                     "USERINFO",
@@ -64,6 +64,9 @@ if (isset($_POST["login"])) {
                             $_SESSION["user_username"] = $user_username;
                             $_SESSION["user_level"] = $user_level;
                             header("Location: index.php");
+                        }else{
+                            header("Location: userDisabled.php");
+                        }
                         } else {
                             header("Location: noToken.php");
                         }
@@ -254,6 +257,23 @@ if(isset($_POST['updatePassword'])){
     
 
 }
+
+if(isset($_POST['newPassword'])){
+    if(empty($password) || empty($re_password)){
+        $password = $_POST["password"];
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $email = $_SESSION["user_email"];
+        $stmt = $conn->prepare(
+            "UPDATE atw.user SET password = ? WHERE email = ?"
+        );
+        $stmt->execute([$hash,$email]);
+        header("Location: account.php");
+    }
+    
+    
+
+}
+
 
 function verify($input)
 {

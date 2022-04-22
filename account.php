@@ -31,7 +31,7 @@ echo("<a href='mgmt.php' class='button' style='position:absolute; right: 455px; 
 <!--Logout button&username -->
 <a href="index.php" class="button" style="position:absolute; right: 455px; top: 10px;">HOME</a>
 <a href="logout.php" class="button" style="position:absolute;  top: 10px;">LOGOUT</a>
-<a href="" class="button" style="position:absolute;  top: 60px;">CHANGE PASSWORD</a>
+<a href="newPassword.php" class="button" style="position:absolute;  top: 60px;">CHANGE PASSWORD</a>
 </center></div>
 <br>
 <br>
