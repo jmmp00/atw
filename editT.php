@@ -48,8 +48,12 @@ if (isset($_GET['id'])){
                     Description: <br>
                     <input type="text" name="description" value="<?php echo $description; ?>">
                     <br>
-                    Verification: <br>
-                    <input type="text" name="verification" value="<?php echo $verification; ?>">
+                    <label for="verification">Verification:</label>
+                    <select name="verification" value="<?php echo $verification; ?>">
+                    <option value="none" selected disabled hidden><?php if ($verification=='0'){echo "Not verified";}else {echo "Verified";} ?></option>
+                    <option value="0">Not verified</option>
+                    <option value="1">Verified</option>
+                    </select>
                     <br><br>
                     <input type="submit" value="Update" name="update">            
                 </fieldset> 

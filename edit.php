@@ -5,12 +5,21 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) {
 $db = mysqli_connect('localhost', 'root', 'admin', 'atw');
 
 if (isset($_POST['update'])) {
+
+    
     $id=$_POST['id'];
     $name=$_POST['name'];
     $surname=$_POST['surname'];
     $email=$_POST['email'];
     $user_level=$_POST['user_level'];
     $status=$_POST['status'];
+
+    if ($status==$enabled){
+        $_SESSION['enabled']==TRUE;
+        }else {
+            $_SESSION['enabled']==FALSE;
+        }
+    
 
     $sql="UPDATE user SET name='$name', surname='$surname', email='$email', user_level='$user_level', status='$status' WHERE id='$id'";
 
@@ -38,6 +47,8 @@ if (isset($_GET['id'])){
                 $email=$row['email'];
                 $user_level=$row['user_level'];
                 $status=$row['status'];
+                $enabled=$row['enabled'];
+
             }
 
             ?>
@@ -54,12 +65,22 @@ if (isset($_GET['id'])){
                     <br>
                     Email: <br>
                     <input type="email" name="email" value="<?php echo $email; ?>">
-                    <br>
-                    Account Type: <br>
-                    <input type="number" name="user_level" value="<?php echo $user_level; ?>">
-                    <br>
-                    Status: <br>
-                    <input type="number" name="status" value="<?php echo $status; ?>">
+                    <br><br>
+                    <label for="user_level">Account Type:</label>
+                    <select name="userl_level" value="<?php echo $user_level; ?>">
+                    <option value="none" selected disabled hidden><?php if ($user_level=='0'){echo "User";}else {echo "Admin";} ?></option>
+                    <option value="0">User</option>
+                    <option value="1">Admin</option>
+                    </select>
+                    <br><br>
+                    <label for="status">Status:</label>
+                    <select name="status" value="<?php echo $status; ?>">
+                    <option value="none" selected disabled hidden><?php if ($status=='0'){echo "Inactive";}else {echo "Active";} ?></option>
+                    <option value="0">Inactive</option>
+                    <option value="1">Active</option>
+                    </select>
+
+            
                     <br><br>
                     <input type="submit" value="Update" name="update">            
                 </fieldset> 

@@ -30,11 +30,11 @@
         $email=$_REQUEST['email'];
         $password=$_REQUEST['password'];
         $accountType=$_REQUEST['accountType'];
-        $avatar=$_REQUEST['img'];~
+        $avatar=$_REQUEST['img'];
         $hash = password_hash($password, PASSWORD_DEFAULT);
           
         // Performing insert query execution
-        $sql = "INSERT INTO user  VALUES (NULL, '$name', '$surname', '$email', '$username', '$hash', '$accountType', '$avatar', 0, 'AddedByAdmin', 1)";
+        $sql = "INSERT INTO user  VALUES (NULL, '$name', '$surname', '$email', '$username', '$hash', '$accountType', '$avatar', 0, 'AddedByAdmin', 1, 1)";
           
         if(mysqli_query($conn, $sql)){
             echo "<h3>Submited with success!</h3>"; 

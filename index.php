@@ -33,7 +33,7 @@ include 'auth.php' ;
 									</ul>
 								</nav>
 
-        					<a href="account.php?id=<?php echo $_SESSION['user_id']?>"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
+        					<a href="account.php"><i class="fa fa-user fa-2x" style="float: right;"></i></a>
 
 						</div>
 

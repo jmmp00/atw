@@ -86,9 +86,11 @@ include 'auth.php' ;
 												?>
 
 <?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
-echo("<a href='editT.php?id=" . $id . "class='edit' title='Edit' data-toggle='tooltip'><i class='material-icons edit'>&#xe3c9;</i></a>");
+	echo "<div>";
+echo("<a href='editT.php?id=" . $id . "class='edit'><i class='material-icons edit'>&#xe3c9;</i></a>");
+echo "<br><br>";
 echo "<span data-toggle='modal' data-target='#modalApagar" . $_GET['id'] . "'>" . "<i class='material-icons'>&#xE5C9;</i>" . "</span>";
-
+echo "</div>";
 }?>
 
 </td>

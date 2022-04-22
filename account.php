@@ -37,7 +37,7 @@ echo("<a href='mgmt.php' class='button' style='position:absolute; right: 455px; 
 <br>
 <br>
 <br>
-<div class="container">
+<div class="container" style="position:absolute; top:160px; left:150px;">
     <div class="row">
 		<br>
 		<br>
@@ -46,11 +46,12 @@ echo("<a href='mgmt.php' class='button' style='position:absolute; right: 455px; 
         	<center>
 
 
-			<img src="images/f1.png" name="aboutme" width="140" height="140" class="img-circle">
-			<p>Name: </p><br>
-			<p>Email: </p><br>
-			<p>Account Type: </p><br>
-			<p>Acount Status: </p>
+			<img src="images/f1.png" name="aboutme" width="140" height="140" class="img-circle"><br>
+			<p><b>Welcome back!</b></p>
+			<p>You're logged in using an <?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
+echo("<b>Admin</b>");
+} else { echo ("<b>User</b>"); }?> account. </p>
+			
 			
 			</center>
 			</div>

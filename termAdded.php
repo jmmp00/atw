@@ -15,15 +15,7 @@
     <center>
         <?php
         include "db_conn.php"; 
-        //$conn = mysqli_connect("localhost", "root", "admin", "atw");
-          
-        // Check connection
-        if($conn === false){
-            die("ERROR: Could not connect. " 
-                . mysqli_connect_error());
-        }
-          
-        // Taking all 5 values from the form data(input)
+    
         $title =  $_POST['title'];
         $description = $_REQUEST['description'];
         $user=$_SESSION['user_username'];
@@ -36,14 +28,11 @@
         if ($verify->rowCount() >= 1) {
             echo "ERROR - term already exists";
         }else{
-            $sql = "INSERT INTO terms  VALUES (NULL, '$title', '$description', current_timestamp(), '$user', NULL)";
-          
-        if(mysqli_query($conn, $sql)){
-            echo "<h3>Submited with success!</h3>"; 
-        } else{
-            echo "ERROR: $sql. " 
-                . mysqli_error($conn);
-        }
+            $sql = $conn->prepare(
+                "INSERT INTO terms  VALUES (NULL, ?, ?, current_timestamp(), ?, NULL)"
+            );
+            $sql->execute([$title,$description,$user]);
+        
         }
         
     
