@@ -1,7 +1,7 @@
 <?php 
   session_start();
 
-  if (isset($_SESSION["enabled"]) && !$_SESSION["enabled"]) { 
+  if (isset($_SESSION["enabled"]) && $_SESSION["enabled"] == 0) { 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,17 +20,9 @@
         <div class="container">
           <div class="signin-content">
             <div class="verify-email-form">
-              <h2 class="form-title"><center>Verify Email!</center></h2>
+              <h2 class="form-title"><center>Account Disabled!</center></h2>
               <form method="POST" class="register-form" id="login-form" action="auth.php"> 
-              <center><div class="alert alert-danger" role="alert" style="text-align:center">You need to verify your e-mail before signing in</div>  <center>
-              <div class="form-group">
-                  <label for="email">
-                    <i class="zmdi zmdi-email"></i>
-                  </label>
-                  <input type="email" name="email" id="email" placeholder="Your Email"/>
-                </div>
-              <div class="form-group form-button">
-                 <center> <input type="submit" name="noToken" id="signin" class="form-submit" value="resend code" /></center>
+              <center><div class="alert alert-danger" role="alert" style="text-align:center">Your account has been disabled by an admin</div>  <center>
                 </div>
               </form>
             </div>

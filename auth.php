@@ -47,6 +47,7 @@ if (isset($_POST["login"])) {
                 $user_enabled = $user["enabled"];
                 if ($userInfo == $user_email || $userInfo == $user_username) {
                     if (password_verify($password, $user_password)) {
+                        $_SESSION["enabled"] = $user_enabled;
                         if ($user_status == 1) {
                             if($user_enabled == 1){
 
