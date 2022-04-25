@@ -75,7 +75,7 @@ $(document).ready(function(){
                         echo "admin";} else {
                             echo "user";
                         } ?> </td>
-                    <td> <?php if ($row['status']=="1"){
+                    <td> <?php if ($row['enabled']=="1"){
                         echo "active";} else {
                             echo "inactive";
                         } ?> </td>

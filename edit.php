@@ -12,16 +12,16 @@ if (isset($_POST['update'])) {
     $surname=$_POST['surname'];
     $email=$_POST['email'];
     $user_level=$_POST['user_level'];
-    $status=$_POST['status'];
+    $enabled=$_POST['enabled'];
 
-    if ($status==$enabled){
+    /*if ($status==1){
         $_SESSION['enabled']==TRUE;
         }else {
             $_SESSION['enabled']==FALSE;
-        }
+        }*/
     
 
-    $sql="UPDATE user SET name='$name', surname='$surname', email='$email', user_level='$user_level', status='$status' WHERE id='$id'";
+    $sql="UPDATE user SET name='$name', surname='$surname', email='$email', user_level='$user_level', enabled='$enabled' WHERE id='$id'";
 
     $result=$db->query($sql);
 
@@ -67,17 +67,29 @@ if (isset($_GET['id'])){
                     <input type="email" name="email" value="<?php echo $email; ?>">
                     <br><br>
                     <label for="user_level">Account Type:</label>
-                    <select name="userl_level" value="<?php echo $user_level; ?>">
-                    <option value="none" selected disabled hidden><?php if ($user_level=='0'){echo "User";}else {echo "Admin";} ?></option>
-                    <option value="0">User</option>
-                    <option value="1">Admin</option>
+                    <select name="user_level">
+                        <?php
+                        if ($user_level=='0'){
+                            echo "<option value='0' selected >User</option>";
+                            echo "<option value='1'>Admin</option>";
+                        }else{
+                            echo "<option value='0'>User</option>";
+                            echo "<option value='1' selected>Admin</option>";
+                        }
+                        ?>
                     </select>
                     <br><br>
-                    <label for="status">Status:</label>
-                    <select name="status" value="<?php echo $status; ?>">
-                    <option value="none" selected disabled hidden><?php if ($status=='0'){echo "Inactive";}else {echo "Active";} ?></option>
-                    <option value="0">Inactive</option>
-                    <option value="1">Active</option>
+                    <label for="enabled">Account Status:</label>
+                    <select name="enabled">
+                        <?php
+                        if ($enabled=='0'){
+                            echo "<option value='0' selected >Inactive</option>";
+                            echo "<option value='1'>Active</option>";
+                        }else{
+                            echo "<option value='0'>Inactive</option>";
+                            echo "<option value='1' select >Active</option>";
+                        }
+                        ?>
                     </select>
 
             
@@ -99,4 +111,3 @@ mysqli_close ($db);
 } else {
   header ('Location: login.php');
 } 
-?>

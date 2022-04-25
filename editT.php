@@ -49,10 +49,16 @@ if (isset($_GET['id'])){
                     <input type="text" name="description" value="<?php echo $description; ?>">
                     <br>
                     <label for="verification">Verification:</label>
-                    <select name="verification" value="<?php echo $verification; ?>">
-                    <option value="none" ><?php if ($verification=='0'){echo "Not verified";}else {echo "Verified";} ?></option>
-                    <option value="0">Not verified</option>
-                    <option value="1">Verified</option>
+                    <select name="verification">
+                        <?php
+                        if ($verification=='0'){
+                            echo "<option value='0' selected >Not verified</option>";
+                            echo "<option value='1'>Verified</option>";
+                        }else{
+                            echo "<option value='0'>Not verified</option>";
+                            echo "<option value='1' selected>Verified</option>";
+                        }
+                        ?>
                     </select>
                     <br><br>
                     <input type="submit" value="Update" name="update">            
