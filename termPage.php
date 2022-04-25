@@ -82,7 +82,7 @@ include 'auth.php' ;
 													echo "<br>";
 													echo '</div>';
 												}		
-												$conn-> close();										 
+																					 
 												?>
 
 <?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
@@ -93,7 +93,7 @@ echo "<span data-toggle='modal' data-target='#modalApagar" . $_GET['id'] . "'>" 
 echo "</div>";
 }?>
 
-</td>
+
 
 <!-- Modal -->
 
@@ -121,13 +121,13 @@ echo "</div>";
   </div>
 </div>
 
+
+
                 
 
 											
-										</div>
-                                        
-									</div>
-
+	</div>
+</div>
 
 									<div class="col-3">
 										<!-- Search bar-->
@@ -140,6 +140,35 @@ echo "</div>";
 								</div>
 							</div>
 						</div>
+
+						<div class="col-9">
+<div class="row">
+<h5 class="h5">Related Terms:</h3> 
+<br><br>
+<?php
+//if parent 
+$pid=mysqli_real_escape_string($conn, $_GET['id']);
+$sql= "SELECT * FROM relations WHERE parent='$pid'";
+$result= $conn-> query($sql);
+while ($row= $result-> fetch_assoc()){												
+	$cid= $row["child"];
+		
+	$sql2= "SELECT * FROM terms WHERE id='$cid'";
+	$result2= $conn-> query($sql2);
+		if($row2= $result2-> fetch_assoc()){
+			echo '<br>';
+			echo "<h6><a href='termPage.php?id=".$row2["id"]."'>", $row2["title"], '</a>';
+			echo '</h6>';
+		}
+		}	
+
+
+
+?>
+
+</div></div>
+
+				
 					</div>
 
 				<!-- Footer -->
