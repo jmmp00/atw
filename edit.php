@@ -48,7 +48,6 @@ if (isset($_GET['id'])){
                 $user_level=$row['user_level'];
                 $status=$row['status'];
                 $enabled=$row['enabled'];
-
             }
 
             ?>
@@ -69,7 +68,7 @@ if (isset($_GET['id'])){
                     <label for="user_level">Account Type:</label>
                     <select name="user_level">
                         <?php
-                        if ($user_level=='0'){
+                        if ($user_level==0){
                             echo "<option value='0' selected >User</option>";
                             echo "<option value='1'>Admin</option>";
                         }else{
@@ -82,12 +81,12 @@ if (isset($_GET['id'])){
                     <label for="enabled">Account Status:</label>
                     <select name="enabled">
                         <?php
-                        if ($enabled=='0'){
+                        if ($enabled==0){
                             echo "<option value='0' selected >Inactive</option>";
                             echo "<option value='1'>Active</option>";
                         }else{
                             echo "<option value='0'>Inactive</option>";
-                            echo "<option value='1' select >Active</option>";
+                            echo "<option value='1' selected >Active</option>";
                         }
                         ?>
                     </select>
