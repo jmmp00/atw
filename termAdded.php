@@ -18,22 +18,27 @@
     
         $title =  $_POST['title'];
         $description = $_REQUEST['description'];
-        $user=$_SESSION['user_username'];
-        
-        $verify = $conn->prepare(
-            "SELECT * FROM terms WHERE title like ?"
-        );
-        $verify->execute([$title]);
-
-        if ($verify->rowCount() >= 1) {
-            echo "ERROR - term already exists";
+        if(strlen($description) > 140){
+            echo "ERROR - The max length of the description is 140 characters";
         }else{
-            $sql = $conn->prepare(
-                "INSERT INTO terms  VALUES (NULL, ?, ?, current_timestamp(), ?, NULL)"
-            );
-            $sql->execute([$title,$description,$user]);
+            $user=$_SESSION['user_username'];
         
+            $verify = $conn->prepare(
+            "SELECT * FROM terms WHERE title like ?"
+            );
+            $verify->execute([$title]);
+
+            if ($verify->rowCount() >= 1) {
+                echo "ERROR - term already exists";
+            }else{
+                $sql = $conn->prepare(
+                "INSERT INTO terms  VALUES (NULL, ?, ?, current_timestamp(), ?, NULL)"
+                );
+                $sql->execute([$title,$description,$user]);
+                echo "The term was added successfully";
+            }
         }
+        
         
     
         ?>
