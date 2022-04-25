@@ -6,7 +6,8 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_username'])) {
 	$db = mysqli_connect("localhost", "root", "admin", "atw");
 	if ($db-> connect_error){
 		die("Connection failed:". $db-> connect_error);
-	}	
+	}
+   	
 ?>
 
 <html>
@@ -46,8 +47,16 @@ echo("<a href='mgmt.php' class='button' style='position:absolute; right: 455px; 
         	<center>
 
 
-			<img src="images/f1.png" name="aboutme" width="140" height="140" class="img-circle"><br>
-			<p><b>Welcome back!</b></p>
+			<?php  
+			$query1 = 'SELECT * FROM user WHERE id=7';  
+			$result = mysqli_query($db, $query1);  
+			if ($result){
+				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){  
+					echo '<img src="data:image/jpeg;base64,'.base64_encode($row['avatar'] ).'" width="140" height="140" class="img-circle" />';  
+				}
+			} else {echo ':c';} 
+			?>  <br>
+			<p><b>Welcome <?php echo $_SESSION["user_name"] . ' ' . $_SESSION["user_surname"]?>!</b></p>
 			<p>You're logged in using an <?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
 echo("<b>Admin</b>");
 } else { echo ("<b>User</b>"); }?> account. </p>
