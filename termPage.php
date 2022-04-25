@@ -39,12 +39,15 @@ include 'auth.php' ;
 
 					</header> 
 				<!-- Menu -->
-					<nav id="menu">
+				<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
-						<li><a href="index.php">Home</a></li>
-						<li><a href="terms.php" class="active">Terms</a></li>
+						<li><a href="index.php" >Home</a></li>
+						<li><a href="terms.php" >Terms</a></li>
 						<li><a href="addTerm.php">Add term</a></li>
+						<?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
+							echo("<li><a href='relationships.php'>Manage relationships</a></li>");
+						}?>
 						</ul>
 					</nav>
 
@@ -122,6 +125,37 @@ echo "</div>";
 </div>
 
 
+<div class="col-9">
+<div class="row">
+<?php
+//if parent 
+$pid=mysqli_real_escape_string($conn, $_GET['id']);
+$sql= "SELECT * FROM relations WHERE parent='$pid'";
+$result= $conn-> query($sql);
+$row_numb= mysqli_num_rows($result);
+if($row_numb != 0){
+	echo '<h5 class="h5">Related Terms:</h5>';
+	echo '<br>';}
+while ($row= $result-> fetch_assoc()){												
+	$cid= $row["child"];
+		
+	$sql2= "SELECT * FROM terms WHERE id='$cid'";
+	$result2= $conn-> query($sql2);
+	$row2= $result2-> fetch_assoc();
+
+		if($row2){
+			echo "<h6><a href='termPage.php?id=".$row2["id"]."'>", $row2["title"], '</a>';
+			echo '</h6>';	
+			} 
+			
+		}
+			
+
+
+
+?>
+
+</div></div>
 
                 
 
@@ -141,32 +175,6 @@ echo "</div>";
 							</div>
 						</div>
 
-						<div class="col-9">
-<div class="row">
-<h5 class="h5">Related Terms:</h3> 
-<br><br>
-<?php
-//if parent 
-$pid=mysqli_real_escape_string($conn, $_GET['id']);
-$sql= "SELECT * FROM relations WHERE parent='$pid'";
-$result= $conn-> query($sql);
-while ($row= $result-> fetch_assoc()){												
-	$cid= $row["child"];
-		
-	$sql2= "SELECT * FROM terms WHERE id='$cid'";
-	$result2= $conn-> query($sql2);
-		if($row2= $result2-> fetch_assoc()){
-			echo '<br>';
-			echo "<h6><a href='termPage.php?id=".$row2["id"]."'>", $row2["title"], '</a>';
-			echo '</h6>';
-		}
-		}	
-
-
-
-?>
-
-</div></div>
 
 				
 					</div>

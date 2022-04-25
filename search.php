@@ -40,15 +40,15 @@
 
 					</header> 
 				<!-- Menu -->
-					<nav id="menu">
+				<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
 						<li><a href="index.php">Home</a></li>
 						<li><a href="terms.php" >Terms</a></li>
-						<li><a href="addterm.php">Add term</a></li>
-						<li><a href="mgmt.php">Manage users</a></li>
-						<li><a href="contact.php">Contact Us</a></li>
-						
+						<li><a href="addTerm.php">Add term</a></li>
+						<?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
+							echo("<li><a href='relationships.php'>Manage relationships</a></li>");
+						}?>
 						</ul>
 					</nav>
  

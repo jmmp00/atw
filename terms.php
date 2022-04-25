@@ -39,12 +39,15 @@ include 'auth.php' ;
 
 					</header> 
 				<!-- Menu -->
-					<nav id="menu">
+				<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
-						<li><a href="index.php">Home</a></li>
+						<li><a href="index.php" >Home</a></li>
 						<li><a href="terms.php" class="active">Terms</a></li>
 						<li><a href="addTerm.php">Add term</a></li>
+						<?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
+							echo("<li><a href='relationships.php'>Manage relationships</a></li>");
+						}?>
 						</ul>
 					</nav>
 
