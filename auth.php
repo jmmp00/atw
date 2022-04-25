@@ -2,7 +2,6 @@
 session_start();
 
 include "db_conn.php";  
-include_once 'template.php';
 
 if (isset($_POST["login"])) {
     if (isset($_POST["password"]) && isset($_POST["userInfo"])) {
@@ -317,13 +316,10 @@ function sendEmail($email, $token)
     $_SESSION["user_token"] = $token;
     ini_set("SMTP", "smtp.server.com"); //confirm smtp
     $to = $email;
-    $subject = "Test mail";
-    $message = "Hello! This is a simple email message.";
+    $subject = "Verification code";
+    $message = "Your code is: " . $token;
     $from = "pedrofiliperocha2001@gmail.com";
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $text = Template::get_contents("template.html", ["token" => $token]);
-    mail($to, $subject, $text, $headers);
+    mail($to, $subject, $message, $headers);
 }
 function generateRandomString($length = 25)
 {

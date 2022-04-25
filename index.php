@@ -45,6 +45,9 @@ include 'auth.php' ;
 						<li><a href="index.php" class="active">Home</a></li>
 						<li><a href="terms.php" >Terms</a></li>
 						<li><a href="addTerm.php">Add term</a></li>
+						<?php if (isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1) {
+							echo("<li><a href='relationships.php'>Manage relationships</a></li>");
+						}?>
 						</ul>
 					</nav>
 

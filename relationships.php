@@ -32,23 +32,19 @@ $(document).ready(function(){
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-5">
-                        <h2>User <b>Management</b></h2>
+                        <h2>Terms Relationships <b>Management</b></h2>
                     </div>
                     <div class="col-sm-7">
                         <a href="index.php" class="btn btn-secondary"><i class="material-icons">&#xe88a;</i> <span>Home</span></a>
-                        <a href="addUser.php" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
+                        <a href="AddRelationships.php" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Relationship</span></a>
                     </div>
                 </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>						
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Account Type</th>
-                        <th>Status</th>
+                        <th>Parent</th>						
+                        <th>Child</th>
                         <th></th>
 
 
@@ -62,37 +58,36 @@ $(document).ready(function(){
                         die("Connection failed:". $conn-> connect_error);
                     }
 
-                    $sql= "SELECT * FROM `user`";
+                    $sql= "SELECT t.title as 'parent' from terms as t inner join relations as r on t.id = r.parent";
+                    $result= $conn-> query($sql);
+                    $parents = array();
+                    $childs = array();
+                    while ($row= $result-> fetch_assoc()){
+                        array_push($parents,$row['parent']);
+                    }
+                    $sql= "SELECT t.title as 'child' from terms as t inner join relations as r on t.id = r.child";
                     $result= $conn-> query($sql);
                     while ($row= $result-> fetch_assoc()){
+                        array_push($childs,$row['child']);
+                    }
+                    for ($x = 0; $x < count($parents); $x++) {
+                        echo "<tr><td>".$parents[$x]."</td>";
+                        echo "<td>".$childs[$x]."</td>";
+                        $sql= "SELECT id from terms where title = '$parents[$x]'";
+                        $result= $conn-> query($sql);
+                        $row= $result-> fetch_assoc();
+                        $parentID = $row['id'];
+                        
+                        $sql= "SELECT id from terms where title = '$childs[$x]'";
+                        $result= $conn-> query($sql);
+                        $row= $result-> fetch_assoc();
+                        $childID = $row['id'];                         
                     ?>
-                    <tr>
-                    <td> <?php echo $row['id']; ?> </td>
-                    <td> <?php echo $row['name'] .' ' . $row['surname']; ?> </td>
-                    <td> <?php echo $row['username']; ?> </td>
-                    <td> <?php echo $row['email']; ?> </td>
-                    <td> <?php if ($row['user_level']=="1"){
-                        echo "admin";} else {
-                            echo "user";
-                        } ?> </td>
-                    <td> <?php if ($row['status']=="1"){
-                        echo "active";} else {
-                            echo "inactive";
-                        } ?> </td>
+
+<td><span data-toggle="modal" data-target="#modalApagar<?PHP echo $x?>">
+<a class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a></span></td>
         
-                    <td>
-                    <!-- Edit button -->
-                    <a href="edit.php?id=<?php echo $row['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons edit">&#xe3c9;</i></a>
-                    
-                    <!-- Delete button -->
-                    <span data-toggle="modal" data-target="#modalApagar<?PHP echo $row ["id"]?>">
-                        <a class="del" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-                    </span>
-                </td>
-
-<!-- Modal -->
-
-<div id="modalApagar<?PHP echo $row ["id"]?>" class="modal fade" role="dialog" tabindex="-1">
+<div id="modalApagar<?PHP echo $x?>" class="modal fade" role="dialog" tabindex="-1">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -101,23 +96,22 @@ $(document).ready(function(){
         <h4 class="modal-title"><strong>Delete</strong></h4>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to permenantly delete <strong><?PHP echo $row ["name"] . " ". $row ["surname"]?></strong>'s account? </p>
+        <p>Are you sure you want to permenantly delete the selected relationship?</p>
       </div>
       <div class="modal-footer">
 <div class="btn-group">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <a type="button" class="btn btn-danger" href="delete.php?id=<?PHP echo $row ["id"]?>">Yes</a>
+          <a type="button" class="btn btn-danger" href="deleteR.php?parent=<?PHP echo $parentID;?>&child=<?PHP echo $childID;?>">Yes</a>
 </div>
       </div>
     </div>
-
   </div>
 </div>
 
 
 </tr>
 <?php
-}
+                    }
 $conn-> close();										 
 ?>
 </tbody>

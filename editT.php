@@ -50,7 +50,7 @@ if (isset($_GET['id'])){
                     <br>
                     <label for="verification">Verification:</label>
                     <select name="verification" value="<?php echo $verification; ?>">
-                    <option value="none" selected disabled hidden><?php if ($verification=='0'){echo "Not verified";}else {echo "Verified";} ?></option>
+                    <option value="none" ><?php if ($verification=='0'){echo "Not verified";}else {echo "Verified";} ?></option>
                     <option value="0">Not verified</option>
                     <option value="1">Verified</option>
                     </select>
